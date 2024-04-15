@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2igahtpjncvi"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_l3gl0"]
+[ext_resource type="Texture2D" uid="uid://67wuvrxa5yig" path="res://assets/player/lil-guy-Sheet.png" id="2_f7n6l"]
+[ext_resource type="Script" path="res://utilities/states/state_machine.gd" id="3_mfc8p"]
+[ext_resource type="Script" path="res://scenes/player/idle.gd" id="4_xncyo"]
+[ext_resource type="Script" path="res://scenes/player/carrying.gd" id="5_ih6nt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6fk0n"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jby72"]
+size = Vector2(11, 15)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 9
+script = ExtResource("1_l3gl0")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6fk0n")
+debug_color = Color(0.959722, 1.92523e-07, 0.520047, 0.42)
+
+[node name="General" type="Node2D" parent="."]
+position = Vector2(350, 200)
+
+[node name="Sprite" type="Sprite2D" parent="General"]
+position = Vector2(-350, -200)
+texture = ExtResource("2_f7n6l")
+
+[node name="Camera2D" type="Camera2D" parent="General"]
+position = Vector2(-347, -201)
+
+[node name="PickupZone" type="Area2D" parent="General"]
+position = Vector2(-350, -200)
+collision_layer = 0
+collision_mask = 8
+
+[node name="PickupCollider" type="CollisionShape2D" parent="General/PickupZone"]
+position = Vector2(-11.5, 0.5)
+shape = SubResource("RectangleShape2D_jby72")
+
+[node name="PickupMarker" type="Marker2D" parent="General"]
+position = Vector2(-350, -210)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_mfc8p")
+initial_state = NodePath("Move")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("4_xncyo")
+
+[node name="Carrying" type="Node" parent="StateMachine"]
+script = ExtResource("5_ih6nt")

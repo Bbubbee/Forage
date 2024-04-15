@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbtjcxmg5v5w2"]
+
+[ext_resource type="Script" path="res://scenes/forageables/base_fruit.gd" id="1_2h8uq"]
+[ext_resource type="Texture2D" uid="uid://dnigy1dfr6v3d" path="res://assets/fruits/peach-Sheet.png" id="1_6uyao"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eopgl"]
+radius = 4.0
+
+[node name="BaseFruit" type="RigidBody2D"]
+collision_layer = 8
+mass = 0.1
+freeze_mode = 1
+script = ExtResource("1_2h8uq")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_eopgl")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_6uyao")
