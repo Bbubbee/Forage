@@ -1,5 +1,9 @@
 extends State
 
+func physics_process(delta):
+	actor.handle_movement(delta)
+	actor.handle_gravity(delta)
+	actor.move_and_slide()
 
 func on_input(_event: InputEvent): 
 	if _event.is_action_pressed("pickup"):
@@ -8,7 +12,8 @@ func on_input(_event: InputEvent):
 		
 		if not bodies: return 
 		
-		var body: RigidBody2D = bodies[0]
+		var body: CharacterBody2D = bodies[0]
+		body.pick_up()
 		
 		transition.emit(self, "carrying", body)
 		

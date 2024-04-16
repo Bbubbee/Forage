@@ -22,22 +22,26 @@ shape = SubResource("CircleShape2D_6fk0n")
 debug_color = Color(0.959722, 1.92523e-07, 0.520047, 0.42)
 
 [node name="General" type="Node2D" parent="."]
+position = Vector2(350, 200)
 
 [node name="Sprite" type="Sprite2D" parent="General"]
+position = Vector2(-350, -200)
 texture = ExtResource("2_f7n6l")
 
 [node name="Camera2D" type="Camera2D" parent="General"]
+position = Vector2(-347, -201)
 
 [node name="PickupZone" type="Area2D" parent="General"]
+position = Vector2(-350, -200)
 collision_layer = 0
 collision_mask = 8
 
 [node name="PickupCollider" type="CollisionShape2D" parent="General/PickupZone"]
-position = Vector2(-10, 0)
+position = Vector2(-11.5, 0.5)
 shape = SubResource("RectangleShape2D_jby72")
 
 [node name="PickupMarker" type="Marker2D" parent="General"]
-position = Vector2(0, -13)
+position = Vector2(-350, -215)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_mfc8p")

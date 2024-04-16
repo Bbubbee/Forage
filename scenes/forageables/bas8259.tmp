@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbtjcxmg5v5w2"]
+[gd_scene load_steps=7 format=3 uid="uid://cbtjcxmg5v5w2"]
 
 [ext_resource type="Script" path="res://scenes/forageables/base_fruit.gd" id="1_2h8uq"]
 [ext_resource type="Texture2D" uid="uid://dnigy1dfr6v3d" path="res://assets/fruits/peach-Sheet.png" id="1_6uyao"]
-[ext_resource type="PackedScene" uid="uid://crns5it7fu8im" path="res://utilities/components/velocity_component.tscn" id="3_cg5km"]
 [ext_resource type="Script" path="res://utilities/states/state_machine.gd" id="3_p3y52"]
 [ext_resource type="Script" path="res://scenes/forageables/idle.gd" id="4_2ikyn"]
 [ext_resource type="Script" path="res://scenes/forageables/held.gd" id="5_4txbu"]
-[ext_resource type="Script" path="res://scenes/forageables/thrown.gd" id="6_b0n6m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eopgl"]
 radius = 4.0
@@ -24,12 +22,6 @@ shape = SubResource("CircleShape2D_eopgl")
 [node name="Sprite" type="Sprite2D" parent="General"]
 texture = ExtResource("1_6uyao")
 
-[node name="Components" type="Node2D" parent="."]
-
-[node name="VelocityComponent" parent="Components" node_paths=PackedStringArray("actor") instance=ExtResource("3_cg5km")]
-actor = NodePath("../..")
-friction = 100.0
-
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_p3y52")
 initial_state = NodePath("Idle")
@@ -39,6 +31,3 @@ script = ExtResource("4_2ikyn")
 
 [node name="Held" type="Node" parent="StateMachine"]
 script = ExtResource("5_4txbu")
-
-[node name="Thrown" type="Node" parent="StateMachine"]
-script = ExtResource("6_b0n6m")
