@@ -41,7 +41,7 @@ position = Vector2(-11.5, 0.5)
 shape = SubResource("RectangleShape2D_jby72")
 
 [node name="PickupMarker" type="Marker2D" parent="General"]
-position = Vector2(-350, -213)
+position = Vector2(-350, -215)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_mfc8p")

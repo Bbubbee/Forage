@@ -9,10 +9,10 @@ func enter(_enter_params = null):
 
 	
 
-func physics_process(delta):
+func physics_process(_delta):
 	if not body: return
 	body.global_transform.origin = actor.pickup_marker.global_position
-	actor.move_and_slide()
+
 
 func on_input(_event: InputEvent): 
 	if _event.is_action_pressed("pickup"):
