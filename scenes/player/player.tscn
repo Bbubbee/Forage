@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2igahtpjncvi"]
+[gd_scene load_steps=9 format=3 uid="uid://c2igahtpjncvi"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_l3gl0"]
 [ext_resource type="Texture2D" uid="uid://67wuvrxa5yig" path="res://assets/player/lil-guy-Sheet.png" id="2_f7n6l"]
@@ -12,9 +12,12 @@ radius = 8.06226
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jby72"]
 size = Vector2(11, 15)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g00yc"]
+size = Vector2(255, 100)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
-collision_mask = 9
+collision_mask = 25
 script = ExtResource("1_l3gl0")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -27,17 +30,26 @@ debug_color = Color(0.959722, 1.92523e-07, 0.520047, 0.42)
 texture = ExtResource("2_f7n6l")
 
 [node name="Camera2D" type="Camera2D" parent="General"]
+position = Vector2(0, -39)
 
 [node name="PickupZone" type="Area2D" parent="General"]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 24
 
 [node name="PickupCollider" type="CollisionShape2D" parent="General/PickupZone"]
 position = Vector2(-10, 0)
 shape = SubResource("RectangleShape2D_jby72")
 
 [node name="PickupMarker" type="Marker2D" parent="General"]
-position = Vector2(0, -11)
+position = Vector2(0, -9)
+
+[node name="ThrowArea" type="Area2D" parent="General"]
+editor_description = "You have to click and drag from this area to throw a fruit."
+
+[node name="Collider" type="CollisionShape2D" parent="General/ThrowArea"]
+position = Vector2(7.5, 10)
+shape = SubResource("RectangleShape2D_g00yc")
+debug_color = Color(0.662745, 0.486275, 0.45098, 0.419608)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_mfc8p")
@@ -48,3 +60,6 @@ script = ExtResource("4_xncyo")
 
 [node name="Carrying" type="Node" parent="StateMachine"]
 script = ExtResource("5_ih6nt")
+
+[connection signal="mouse_entered" from="General/ThrowArea" to="." method="_on_throw_area_mouse_entered"]
+[connection signal="mouse_exited" from="General/ThrowArea" to="." method="_on_throw_area_mouse_exited"]

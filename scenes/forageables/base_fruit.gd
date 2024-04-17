@@ -1,4 +1,6 @@
 extends CharacterBody2D
+class_name Fruit
+
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -16,7 +18,7 @@ func pick_up():
 func throw(data: Dictionary): 
 	state_machine.force_transition("thrown", data)
 
-func handle_rotation(delta): 
+func handle_rotation(_delta): 
 	if velocity.x > 0: 
 		sprite.rotation += 0.5
 	elif velocity.x < 0: 

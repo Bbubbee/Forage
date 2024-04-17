@@ -7,6 +7,10 @@ func physics_process(delta):
 
 func on_input(_event: InputEvent): 
 	if _event.is_action_pressed("pickup"):
+		
+		# Check if clicked on valid area (the orange circle around the player).
+		if not actor.is_mouse_in_throw_area: return
+		
 		# Get areas touching pickup zone. 
 		var bodies = actor.pickup_zone.get_overlapping_bodies()
 		

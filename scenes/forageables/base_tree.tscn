@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2r51kpq6cpxa"]
+
+[ext_resource type="Texture2D" uid="uid://d0g5vihptlxna" path="res://assets/tiles/tree-Sheet.png" id="1_csgqt"]
+[ext_resource type="Script" path="res://scenes/forageables/base_tree.gd" id="2_hfgno"]
+[ext_resource type="PackedScene" uid="uid://cbtjcxmg5v5w2" path="res://scenes/forageables/base_fruit.tscn" id="3_ou4br"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvely"]
+size = Vector2(21, 36)
+
+[sub_resource type="Animation" id="Animation_askio"]
+resource_name = "dry"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.572549, 0.572549, 0.572549, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_up8gx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v8681"]
+_data = {
+"RESET": SubResource("Animation_up8gx"),
+"dry": SubResource("Animation_askio")
+}
+
+[node name="BaseTree" type="Sprite2D"]
+texture = ExtResource("1_csgqt")
+hframes = 3
+script = ExtResource("2_hfgno")
+fruit_scene = ExtResource("3_ou4br")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_qvely")
+debug_color = Color(0.137255, 0.623529, 0.490196, 0.419608)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="FruitSpawns" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="FruitMarker1" type="Marker2D" parent="FruitSpawns"]
+position = Vector2(0, -13)
+
+[node name="FruitMarker2" type="Marker2D" parent="FruitSpawns"]
+position = Vector2(-8, 0)
+
+[node name="FruitMarker3" type="Marker2D" parent="FruitSpawns"]
+position = Vector2(9, 1)
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v8681")
+}
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

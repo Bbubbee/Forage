@@ -21,7 +21,7 @@ func _ready():
 	state_machine.init(self) 
 	
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	flip_player()
 
 
@@ -60,4 +60,14 @@ func flip_player():
 		facing_right = false
 		sprite.flip_h = false
 		pickup_collider.position.x = -10
+
+
+
+var is_mouse_in_throw_area: bool = false
+
+func _on_throw_area_mouse_entered():
+	is_mouse_in_throw_area = true
+
+func _on_throw_area_mouse_exited():
+	is_mouse_in_throw_area = false
 

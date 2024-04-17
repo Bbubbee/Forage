@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnpv4efd2takm"]
+
+[ext_resource type="PackedScene" uid="uid://cbtjcxmg5v5w2" path="res://scenes/forageables/base_fruit.tscn" id="1_372np"]
+[ext_resource type="Texture2D" uid="uid://dc4vprtds2bmd" path="res://assets/fruits/peach-seed-Sheet.png" id="2_8fl13"]
+[ext_resource type="Script" path="res://scenes/forageables/base_seed.gd" id="2_nsht1"]
+[ext_resource type="PackedScene" uid="uid://d2r51kpq6cpxa" path="res://scenes/forageables/base_tree.tscn" id="3_4xfk2"]
+
+[node name="BaseSeed" instance=ExtResource("1_372np")]
+script = ExtResource("2_nsht1")
+tree_type = ExtResource("3_4xfk2")
+
+[node name="Collider" parent="." index="0"]
+position = Vector2(0, 0)
+
+[node name="Sprite" parent="General" index="0"]
+texture = ExtResource("2_8fl13")

@@ -23,11 +23,14 @@ func physics_process(delta):
 func on_input(event: InputEvent): 
 	# Aim the fruit in the direction and strength you desire. 
 	if event.is_action_pressed("pickup"):
+		if not actor.is_mouse_in_throw_area: return
+		
 		is_aiming = true 
 		aim_fruit()
 	
 	# Throw the fruit! 
 	if event.is_action_released("pickup"):
+		
 		if is_aiming: 
 			is_aiming = false 
 			throw_fruit()
@@ -35,15 +38,15 @@ func on_input(event: InputEvent):
 var start_pos: Vector2
 
 func aim_fruit():
-	start_pos = actor.get_global_mouse_position()
+	start_pos = actor.get_local_mouse_position()
 	
 
 func throw_fruit(): 
 	# Get the force to throw the fruit. 
 	# Depends on the distance dragged. 
-	var release_pos = actor.get_global_mouse_position()	
+	var release_pos = actor.get_local_mouse_position()
 	var distance = Globals.get_distance_between_two_targets(start_pos, release_pos)
-	var force = clamp(distance*1.5, 0, 250)
+	var force = clamp(distance*3, 0, 225)  # *3 = it reaches max distant faster.
 	
 	# The direction to throw the fruit. 	
 	var direction = Globals.get_direction_to_target(start_pos, release_pos)
