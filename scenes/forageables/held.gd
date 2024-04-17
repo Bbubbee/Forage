@@ -1,10 +1,9 @@
 extends State
 
 func enter(_enter_params = null):
-	# Make fruit uninteractable with player. 
+	# Make the fruit not collidable with the player.
 	actor.collision_layer = 16
+	# We return collision some time after being thrown.
+	
 
-func exit():
-	# Make fruit interactable with player. 
-	actor.collision_layer = 8
 

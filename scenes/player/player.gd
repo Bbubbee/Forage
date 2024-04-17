@@ -46,8 +46,8 @@ func handle_gravity(delta: float):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-func _draw():
-	draw_line(Vector2.ZERO, Vector2(50, -50), Color.RED, 2)
+#func _draw():
+	#draw_line(Vector2.ZERO, Vector2(50, -50), Color.RED, 2)
 
 var facing_right: bool
 func flip_player(): 

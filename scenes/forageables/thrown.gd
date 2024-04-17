@@ -1,20 +1,26 @@
 extends State
 
+@onready var collision_reset_timer: Timer = $CollisionResetTimer
 
-func enter(_enter_params = null):
-	var dir = _enter_params
+func enter(enter_params = null):
+	var dir = enter_params["direction"]
+	var force = enter_params["force"]
 	
-	if dir.x > 0: 	
-		actor.velocity.x = 125
-		actor.velocity.y = -100
-	else: 
-		actor.velocity.x = -125
-		actor.velocity.y = -100
+	actor.velocity = dir * force
+	
+	collision_reset_timer.start()
+	
 
 func physics_process(delta: float):
 	# Return velocity.x to zero. 
 	actor.velocity_component.stop(delta) 
 	actor.velocity_component.handle_gravity(delta)
+	
 	actor.move_and_slide()
 	
 	actor.handle_rotation(delta)
+
+
+# Let the player collide with the fruit now.
+func _on_collision_reset_timer_timeout() -> void:
+	actor.collision_layer = 8

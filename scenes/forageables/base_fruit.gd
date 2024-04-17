@@ -13,8 +13,8 @@ func _ready():
 func pick_up(): 
 	state_machine.force_transition("held")
 
-func throw(direction: Vector2): 
-	state_machine.force_transition("thrown", direction)
+func throw(data: Dictionary): 
+	state_machine.force_transition("thrown", data)
 
 func handle_rotation(delta): 
 	if velocity.x > 0: 
