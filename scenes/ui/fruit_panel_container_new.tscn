@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjywnferspmem"]
+
+[ext_resource type="Script" path="res://scenes/ui/fruit_panel_container_new.gd" id="1_pj7p7"]
+
+[sub_resource type="Animation" id="Animation_xdfec"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitPanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1ilfe"]
+resource_name = "appear"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FruitPanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ir338"]
+_data = {
+"RESET": SubResource("Animation_xdfec"),
+"appear": SubResource("Animation_1ilfe")
+}
+
+[node name="FruitPanelContainerNew" type="Node2D"]
+script = ExtResource("1_pj7p7")
+
+[node name="FruitPanelContainer" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_right = 42.0
+offset_bottom = 14.0
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="InteractShape" type="CollisionShape2D" parent="InteractArea"]
+debug_color = Color(0.380392, 0.521569, 0.85098, 0.419608)
+
+[node name="DisplayTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ir338")
+}
+
+[connection signal="timeout" from="DisplayTimer" to="." method="_on_display_timer_timeout"]

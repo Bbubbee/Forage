@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf6he4pv7oas4"]
+
+[ext_resource type="Texture2D" uid="uid://3ie8dlqoxidf" path="res://assets/ui/money-Sheet.png" id="1_dywqi"]
+[ext_resource type="Script" path="res://scenes/main/results_screen.gd" id="1_oowbh"]
+[ext_resource type="Texture2D" uid="uid://cq6djjh8ybfob" path="res://assets/player/robot-face-Sheet.png" id="2_a7c2t"]
+[ext_resource type="Texture2D" uid="uid://dh06jumljpbkc" path="res://assets/backgrounds/nature_2/origbig.png" id="4_4b3xb"]
+
+[node name="ResultsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oowbh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.5
+offset_top = -42.5
+offset_right = 75.5
+offset_bottom = 42.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoneyStat" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MoneySprite" type="TextureRect" parent="VBoxContainer/MoneyStat"]
+layout_mode = 2
+texture = ExtResource("1_dywqi")
+expand_mode = 3
+
+[node name="MoneyLabel" type="Label" parent="VBoxContainer/MoneyStat"]
+layout_mode = 2
+text = "= "
+
+[node name="RobotStat" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RobotSprite" type="TextureRect" parent="VBoxContainer/RobotStat"]
+custom_minimum_size = Vector2(0, 7.6)
+layout_mode = 2
+texture = ExtResource("2_a7c2t")
+expand_mode = 3
+
+[node name="RobotLabel" type="Label" parent="VBoxContainer/RobotStat"]
+layout_mode = 2
+text = "= "
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color(0.654902, 0.654902, 0.654902, 1)
+position = Vector2(136, 84)
+scale = Vector2(0.14728, 0.14728)
+texture = ExtResource("4_4b3xb")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "asd"

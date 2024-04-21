@@ -6,6 +6,7 @@ var direction: Vector2
 var wander_time_max: float = 6
 var wander_time_min: float = 4
 
+@onready var area_detector = $"../../General/AreaDetector"
 
 func enter(_enter_params = null):
 	actor.animator.play("walk")
@@ -24,6 +25,7 @@ func enter(_enter_params = null):
 func physics_process(delta: float) -> void:
 	# Wander forward. 
 	actor.velocity.x = move_toward(direction.x*actor.SPEED, actor.velocity.x, delta*actor.ACCELERATION)
+	actor.move_and_slide()	
 	
 	# Turn around if a drop is ahead. 
 	if not actor.floor_detector_ray.is_colliding(): turn_around()
@@ -31,7 +33,9 @@ func physics_process(delta: float) -> void:
 	# Turn around if a wall is ahead.
 	if actor.is_on_wall(): turn_around()
 	
-	actor.move_and_slide()
+	# Turn around if a 'stay away' area is ahead. 
+	#if area_detector.has_overlapping_areas(): turn_around()
+	
 	
 
 func turn_around(): 

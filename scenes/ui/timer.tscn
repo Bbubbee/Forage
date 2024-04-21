@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1abdltqthpwf"]
+
+[ext_resource type="Script" path="res://scenes/ui/timer.gd" id="1_ewp2g"]
+[ext_resource type="Texture2D" uid="uid://diwewol45wab4" path="res://assets/tiles/progress.png" id="1_ork1d"]
+[ext_resource type="Texture2D" uid="uid://twec3hgv8ryk" path="res://assets/tiles/over.png" id="2_awhk1"]
+
+[node name="Timer" type="TextureProgressBar"]
+offset_right = 30.0
+offset_bottom = 6.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("1_ork1d")
+texture_over = ExtResource("2_awhk1")
+texture_progress = ExtResource("1_ork1d")
+tint_under = Color(0.133333, 0.0666667, 0.0666667, 1)
+tint_over = Color(0.372549, 0.0666667, 0.0666667, 1)
+tint_progress = Color(0.407843, 0.0823529, 0.580392, 1)
+script = ExtResource("1_ewp2g")

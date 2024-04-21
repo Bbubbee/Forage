@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://05rt7y4rwb02"]
+[gd_scene load_steps=20 format=3 uid="uid://05rt7y4rwb02"]
 
 [ext_resource type="Script" path="res://scenes/robots/base_robot.gd" id="1_n7rmx"]
 [ext_resource type="Texture2D" uid="uid://dmn6qluxf74hm" path="res://assets/robots/robot-tileset.png" id="2_8weuy"]
 [ext_resource type="PackedScene" uid="uid://crns5it7fu8im" path="res://utilities/components/velocity_component.tscn" id="3_cbsef"]
 [ext_resource type="Script" path="res://utilities/states/state_machine.gd" id="3_hybgk"]
+[ext_resource type="PackedScene" uid="uid://c1abdltqthpwf" path="res://scenes/ui/timer.tscn" id="3_jsuk4"]
 [ext_resource type="Script" path="res://scenes/robots/idle.gd" id="4_fseqp"]
 [ext_resource type="Script" path="res://scenes/robots/wander.gd" id="5_i2inj"]
 [ext_resource type="Script" path="res://scenes/robots/spawn.gd" id="5_llxmp"]
-[ext_resource type="PackedScene" uid="uid://cd3nqk38gnvj5" path="res://scenes/shop/fruit_panel_container.tscn" id="8_cjn6r"]
+[ext_resource type="Script" path="res://scenes/robots/despawn.gd" id="7_h48ei"]
+[ext_resource type="PackedScene" uid="uid://bjywnferspmem" path="res://scenes/ui/fruit_panel_container_new.tscn" id="8_wmew2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7iv5"]
 height = 26.0
@@ -40,7 +42,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_gkvv1"]
@@ -100,20 +102,24 @@ _data = {
 "walk": SubResource("Animation_w73xs")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oh18a"]
+size = Vector2(22, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fa1v7"]
+size = Vector2(14, 26)
+
 [node name="BaseRobot" type="CharacterBody2D"]
 z_index = -1
 collision_layer = 4
 script = ExtResource("1_n7rmx")
 
 [node name="PhysicsShape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(1, 2)
 shape = SubResource("CapsuleShape2D_a7iv5")
 
 [node name="General" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="General"]
-modulate = Color(1, 1, 1, 0)
 texture = SubResource("AtlasTexture_vd2ho")
 hframes = 13
 
@@ -129,6 +135,25 @@ position = Vector2(10, 2.08165e-12)
 target_position = Vector2(0, 23)
 collide_with_areas = true
 
+[node name="AreaDetector" type="Area2D" parent="General"]
+collision_layer = 0
+collision_mask = 64
+
+[node name="AreaDetectorShape" type="CollisionShape2D" parent="General/AreaDetector"]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_oh18a")
+debug_color = Color(0.454902, 0.584314, 0.352941, 0.419608)
+
+[node name="Timer" parent="General" instance=ExtResource("3_jsuk4")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -15.0
+offset_top = -17.0
+offset_right = 15.0
+offset_bottom = -11.0
+grow_horizontal = 2
+
 [node name="Components" type="Node2D" parent="."]
 
 [node name="VelocityComponent" parent="Components" node_paths=PackedStringArray("actor") instance=ExtResource("3_cbsef")]
@@ -140,6 +165,9 @@ initial_state = NodePath("Spawn")
 
 [node name="Spawn" type="Node" parent="StateMachine"]
 script = ExtResource("5_llxmp")
+
+[node name="Despawn" type="Node" parent="StateMachine"]
+script = ExtResource("7_h48ei")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_fseqp")
@@ -153,8 +181,26 @@ script = ExtResource("5_i2inj")
 [node name="WanderTimer" type="Timer" parent="StateMachine/Wander"]
 one_shot = true
 
-[node name="FruitPanelContainer" parent="." instance=ExtResource("8_cjn6r")]
+[node name="FruitPanelContainerNew" parent="." instance=ExtResource("8_wmew2")]
+
+[node name="FruitPanelContainer" parent="FruitPanelContainerNew" index="0"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = -33.0
+offset_right = 25.0
+offset_bottom = -21.0
+grow_horizontal = 2
+
+[node name="InteractShape" parent="FruitPanelContainerNew/InteractArea" index="0"]
+position = Vector2(1, 3)
+shape = SubResource("RectangleShape2D_fa1v7")
 
 [connection signal="animation_finished" from="General/Animator" to="StateMachine/Spawn" method="_on_animator_animation_finished"]
+[connection signal="im_out_of_patience" from="General/Timer" to="." method="_on_timer_im_out_of_patience"]
 [connection signal="timeout" from="StateMachine/Idle/IdleTimer" to="StateMachine/Idle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Wander/WanderTimer" to="StateMachine/Wander" method="_on_wander_timer_timeout"]
+
+[editable path="General/Timer"]
+[editable path="FruitPanelContainerNew"]

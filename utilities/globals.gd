@@ -20,3 +20,18 @@ const list_of_fruits = [
 	'peach',
 	'blueberry'
 ]
+
+const fruit_colours = {
+	'apple': Color(0.6, 0, 0),
+	'peach': Color.HOT_PINK,
+	'blueberry': Color.DEEP_SKY_BLUE
+}
+
+const seeds = [
+	preload("res://scenes/forageables/apple_seed.tscn"),
+	preload("res://scenes/forageables/peach_seed.tscn"),
+	preload("res://scenes/forageables/blueberry_seed.tscn"),
+]
+
+func spawn_random_seed(): 
+	return seeds.pick_random()

@@ -50,3 +50,23 @@ func _on_water_area_area_entered(area: Area2D) -> void:
 func _on_water_area_area_exited(area: Area2D) -> void:
 	if area.collision_layer == 32:
 		is_getting_rained_on = false
+
+@onready var mouse_detector = $MouseDetector
+var is_mouse_over_tree: bool = false
+var destroy_clicks: int = 0 
+
+func _input(event):
+	if event.is_action_pressed("destroy") and is_mouse_over_tree:
+		destroy_clicks += 1 
+		
+		if destroy_clicks >= 5: 
+			queue_free()
+
+
+func _on_mouse_detector_mouse_entered():
+	is_mouse_over_tree = true
+
+
+func _on_mouse_detector_mouse_exited():
+	is_mouse_over_tree = false
+	destroy_clicks = 0

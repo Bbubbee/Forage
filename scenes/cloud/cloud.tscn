@@ -3,9 +3,8 @@
 [ext_resource type="Script" path="res://scenes/cloud/cloud.gd" id="1_lnnin"]
 [ext_resource type="Texture2D" uid="uid://clarmtnxojfkb" path="res://assets/player/cloud-v2-Sheet.png" id="2_7txnd"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qeitl"]
-radius = 16.0
-height = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgl4f"]
+size = Vector2(30, 15)
 
 [sub_resource type="Animation" id="Animation_dceu7"]
 length = 0.001
@@ -90,12 +89,13 @@ color = Color(0.0862745, 1, 1, 1)
 size = Vector2(17, 174)
 
 [node name="Cloud" type="Area2D"]
+z_index = 5
 script = ExtResource("1_lnnin")
 
 [node name="MouseDetector" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_qeitl")
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_qgl4f")
 debug_color = Color(0.0509804, 0.560784, 0.521569, 0.419608)
-metadata/_edit_lock_ = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_7txnd")
@@ -108,7 +108,7 @@ libraries = {
 }
 
 [node name="CryTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 8.5
 one_shot = true
 
 [node name="RainParticles" type="GPUParticles2D" parent="."]

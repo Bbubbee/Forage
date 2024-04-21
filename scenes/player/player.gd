@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 225.0
 const JUMP_VELOCITY = -200
-const acceleration: float = 1500.0
+const acceleration: float = 1000.0
 const friction: float = 1500.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -38,10 +38,7 @@ func handle_movement(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+
 
 func handle_gravity(delta: float): 
 	# Add the gravity.

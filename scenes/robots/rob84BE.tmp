@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://rgd2ap44mvpk"]
+
+[ext_resource type="Script" path="res://scenes/robots/robot_spawn_manager.gd" id="1_1dcdb"]
+
+[node name="RobotSpawnManager" type="Node2D"]
+script = ExtResource("1_1dcdb")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="SpawnAreas" type="Node2D" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

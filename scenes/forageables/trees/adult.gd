@@ -4,10 +4,8 @@ var fruit_timer: float
 var time_to_grow_fruit: float = 5.0 
 
 func enter(_enter_params = null):
-	actor.is_wet = false 	
 	actor.sprite.frame = 2
 	fruit_timer = 0
-	actor.dry_up_timer = 0 
 
 func physics_process(delta: float) -> void:
 	if actor.is_getting_rained_on: 

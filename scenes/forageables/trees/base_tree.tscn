@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2r51kpq6cpxa"]
+[gd_scene load_steps=13 format=3 uid="uid://d2r51kpq6cpxa"]
 
 [ext_resource type="Texture2D" uid="uid://d0g5vihptlxna" path="res://assets/tiles/tree-Sheet.png" id="1_csgqt"]
 [ext_resource type="PackedScene" uid="uid://cbtjcxmg5v5w2" path="res://scenes/forageables/base_fruit.tscn" id="2_dhv5j"]
@@ -46,6 +46,9 @@ _data = {
 "RESET": SubResource("Animation_up8gx"),
 "dry": SubResource("Animation_askio")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uuces"]
+size = Vector2(21, 36)
 
 [node name="BaseTree" type="Node2D"]
 script = ExtResource("2_hfgno")
@@ -97,5 +100,13 @@ script = ExtResource("5_7tr05")
 [node name="Adult" type="Node" parent="StateMachine"]
 script = ExtResource("6_o5w7m")
 
+[node name="MouseDetector" type="Area2D" parent="."]
+
+[node name="MouseDetectorShape" type="CollisionShape2D" parent="MouseDetector"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_uuces")
+
 [connection signal="area_entered" from="WaterArea" to="." method="_on_water_area_area_entered"]
 [connection signal="area_exited" from="WaterArea" to="." method="_on_water_area_area_exited"]
+[connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]

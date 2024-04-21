@@ -4,10 +4,8 @@ var time_to_adult: float = 5.0
 var growth_timer: float = 0.0
 
 func enter(_enter_params = null):
-	actor.is_wet = false 
 	actor.sprite.frame = 1
 	growth_timer = 0
-	actor.dry_up_timer = 0 
 	
 
 func physics_process(delta: float) -> void:

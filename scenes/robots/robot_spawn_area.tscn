@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bte3f76uqg0vt"]
+
+[ext_resource type="Script" path="res://scenes/robots/robot_spawn_area.gd" id="1_fxrce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dhs0i"]
+size = Vector2(165.5, 14)
+
+[node name="RobotSpawnArea" type="Area2D"]
+script = ExtResource("1_fxrce")
+
+[node name="RobotSpawnShape" type="CollisionShape2D" parent="."]
+position = Vector2(10, -3)
+shape = SubResource("RectangleShape2D_dhs0i")

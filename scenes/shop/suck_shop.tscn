@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://50cgu1wmwikp"]
+[gd_scene load_steps=14 format=3 uid="uid://50cgu1wmwikp"]
 
 [ext_resource type="Script" path="res://scenes/shop/suck_shop.gd" id="1_buoqi"]
 [ext_resource type="Texture2D" uid="uid://p2kbyc0s6w5d" path="res://assets/shop/suck-shop-Sheet.png" id="2_qya4r"]
 [ext_resource type="PackedScene" uid="uid://hcl01gwwfds1" path="res://scenes/shop/button.tscn" id="3_8hhe4"]
-[ext_resource type="PackedScene" uid="uid://cd3nqk38gnvj5" path="res://scenes/shop/fruit_panel_container.tscn" id="4_5fksk"]
+[ext_resource type="PackedScene" uid="uid://bjywnferspmem" path="res://scenes/ui/fruit_panel_container_new.tscn" id="4_nw5y6"]
 
 [sub_resource type="Animation" id="Animation_fyvjy"]
 length = 0.001
@@ -36,6 +36,22 @@ tracks/0/keys = {
 "values": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 }
 
+[sub_resource type="Animation" id="Animation_ikoxa"]
+resource_name = "open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10]
+}
+
 [sub_resource type="Animation" id="Animation_isojt"]
 resource_name = "suck"
 length = 0.6
@@ -56,11 +72,21 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_fyvjy"),
 "blend": SubResource("Animation_ikan4"),
+"open": SubResource("Animation_ikoxa"),
 "suck": SubResource("Animation_isojt")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3mtp"]
 size = Vector2(24, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isid6"]
+size = Vector2(19, 4.00003)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4y788"]
+size = Vector2(32, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kltd"]
+size = Vector2(70, 76)
 
 [node name="SuckShop" type="Node2D"]
 z_index = -2
@@ -89,23 +115,50 @@ modulate = Color(0.2, 1, 0.223529, 1)
 position = Vector2(-13.5198, 27.1033)
 rotation = -1.5708
 
+[node name="PressAreaShape" parent="JuiceButton/PressArea" index="0"]
+position = Vector2(-1.90735e-06, -4)
+
 [node name="SpitButton" parent="." instance=ExtResource("3_8hhe4")]
 modulate = Color(1, 0.027451, 0.027451, 1)
 position = Vector2(13.4339, 27.5875)
 rotation = 1.5708
 
-[node name="FruitPanelContainer" parent="." instance=ExtResource("4_5fksk")]
-offset_left = -25.5538
-offset_top = -48.5306
-offset_right = 25.4462
-offset_bottom = -32.5306
+[node name="PressAreaShape" parent="SpitButton/PressArea" index="0"]
+position = Vector2(-0.0875149, -3.56608)
+shape = SubResource("RectangleShape2D_isid6")
 
-[node name="InteractArea" parent="FruitPanelContainer" index="0"]
-position = Vector2(24, 69.8392)
+[node name="FruitPanelContainerNew" parent="." instance=ExtResource("4_nw5y6")]
 
-[node name="InteractShape" parent="FruitPanelContainer/InteractArea" index="0"]
-position = Vector2(1.69791, 7.35188)
+[node name="FruitPanelContainer" parent="FruitPanelContainerNew" index="0"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = -47.0
+offset_right = 25.0
+offset_bottom = -33.0
+grow_horizontal = 2
 
+[node name="InteractShape" parent="FruitPanelContainerNew/InteractArea" index="0"]
+position = Vector2(-6, 28.5)
+shape = SubResource("RectangleShape2D_4y788")
+
+[node name="RobotRepelArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 64
+collision_mask = 0
+
+[node name="RobotRepelShape" type="CollisionShape2D" parent="RobotRepelArea"]
+shape = SubResource("RectangleShape2D_6kltd")
+
+[node name="JuiceSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 30)
+
+[connection signal="animation_finished" from="Animator" to="." method="_on_animator_animation_finished"]
 [connection signal="body_entered" from="ConsumptionArea" to="." method="_on_consumption_area_body_entered"]
+[connection signal="pressed" from="JuiceButton" to="." method="_on_juice_button_pressed"]
+[connection signal="pressed" from="SpitButton" to="." method="_on_spit_button_pressed"]
 
-[editable path="FruitPanelContainer"]
+[editable path="JuiceButton"]
+[editable path="SpitButton"]
+[editable path="FruitPanelContainerNew"]

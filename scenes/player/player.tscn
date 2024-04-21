@@ -1,19 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2igahtpjncvi"]
+[gd_scene load_steps=12 format=3 uid="uid://c2igahtpjncvi"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_l3gl0"]
 [ext_resource type="Texture2D" uid="uid://67wuvrxa5yig" path="res://assets/player/lil-guy-Sheet.png" id="2_f7n6l"]
 [ext_resource type="Script" path="res://utilities/states/state_machine.gd" id="3_mfc8p"]
 [ext_resource type="Script" path="res://scenes/player/idle.gd" id="4_xncyo"]
 [ext_resource type="Script" path="res://scenes/player/carrying.gd" id="5_ih6nt"]
+[ext_resource type="Texture2D" uid="uid://3ie8dlqoxidf" path="res://assets/ui/money-Sheet.png" id="6_54amc"]
+[ext_resource type="Script" path="res://scenes/player/money.gd" id="6_em40s"]
+[ext_resource type="FontFile" uid="uid://cvqqiiljy1x4j" path="res://assets/font/PixelRPG.ttf" id="7_3843h"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6fk0n"]
-radius = 8.06226
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_furt1"]
+size = Vector2(10, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jby72"]
 size = Vector2(11, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g00yc"]
-size = Vector2(255, 100)
+size = Vector2(255, 124)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -21,7 +24,8 @@ collision_mask = 25
 script = ExtResource("1_l3gl0")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_6fk0n")
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_furt1")
 debug_color = Color(0.959722, 1.92523e-07, 0.520047, 0.42)
 
 [node name="General" type="Node2D" parent="."]
@@ -30,12 +34,12 @@ debug_color = Color(0.959722, 1.92523e-07, 0.520047, 0.42)
 texture = ExtResource("2_f7n6l")
 
 [node name="Camera2D" type="Camera2D" parent="General"]
-position = Vector2(0, -26)
+position = Vector2(0, -34)
 zoom = Vector2(1.25, 1.25)
 
 [node name="PickupZone" type="Area2D" parent="General"]
 collision_layer = 0
-collision_mask = 24
+collision_mask = 152
 
 [node name="PickupCollider" type="CollisionShape2D" parent="General/PickupZone"]
 position = Vector2(-10, 0)
@@ -48,7 +52,7 @@ position = Vector2(0, -9)
 editor_description = "You have to click and drag from this area to throw a fruit."
 
 [node name="Collider" type="CollisionShape2D" parent="General/ThrowArea"]
-position = Vector2(7.5, 10)
+position = Vector2(7, -17)
 shape = SubResource("RectangleShape2D_g00yc")
 debug_color = Color(0.662745, 0.486275, 0.45098, 0.419608)
 
@@ -61,6 +65,32 @@ script = ExtResource("4_xncyo")
 
 [node name="Carrying" type="Node" parent="StateMachine"]
 script = ExtResource("5_ih6nt")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Money" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 8.0
+offset_right = 6.0
+offset_bottom = 8.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("6_em40s")
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/Money"]
+texture = ExtResource("6_54amc")
+
+[node name="MoneyCount" type="Label" parent="UI/Money"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -5.0
+offset_right = 15.0
+offset_bottom = 7.0
+theme_override_fonts/font = ExtResource("7_3843h")
+theme_override_font_sizes/font_size = 10
+text = "0"
 
 [connection signal="mouse_entered" from="General/ThrowArea" to="." method="_on_throw_area_mouse_entered"]
 [connection signal="mouse_exited" from="General/ThrowArea" to="." method="_on_throw_area_mouse_exited"]

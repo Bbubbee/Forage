@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0lrs6nacbw3j"]
+
+[ext_resource type="Script" path="res://scenes/juice/base_juice.gd" id="1_0l137"]
+[ext_resource type="Texture2D" uid="uid://5tf7n57phaht" path="res://assets/player/juice-glass-Sheet.png" id="1_yodub"]
+[ext_resource type="Texture2D" uid="uid://dhwt5vh2cngye" path="res://assets/player/juice-content-Sheet.png" id="2_8n4jh"]
+[ext_resource type="PackedScene" uid="uid://crns5it7fu8im" path="res://utilities/components/velocity_component.tscn" id="3_vrwyw"]
+[ext_resource type="Script" path="res://utilities/states/state_machine.gd" id="5_p8nwr"]
+[ext_resource type="Script" path="res://scenes/forageables/idle.gd" id="6_mvbsi"]
+[ext_resource type="Script" path="res://scenes/forageables/held.gd" id="7_igvjr"]
+[ext_resource type="Script" path="res://scenes/juice/thrown.gd" id="8_sdj7a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jmf4a"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e2dv0"]
+radius = 4.0
+
+[node name="BaseJuice" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 9
+script = ExtResource("1_0l137")
+
+[node name="CharacterShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jmf4a")
+
+[node name="JuiceSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0.568627, 0.223529, 1)
+texture = ExtResource("2_8n4jh")
+
+[node name="GlassSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_yodub")
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="VelocityComponent" parent="Components" node_paths=PackedStringArray("actor") instance=ExtResource("3_vrwyw")]
+actor = NodePath("../..")
+friction = 100.0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_p8nwr")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("6_mvbsi")
+
+[node name="Held" type="Node" parent="StateMachine"]
+script = ExtResource("7_igvjr")
+
+[node name="Thrown" type="Node" parent="StateMachine"]
+script = ExtResource("8_sdj7a")
+
+[node name="CollisionResetTimer" type="Timer" parent="StateMachine/Thrown"]
+wait_time = 0.1
+one_shot = true
+
+[node name="RobotDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="RobotDetectorShape" type="CollisionShape2D" parent="RobotDetector"]
+shape = SubResource("CircleShape2D_e2dv0")
+debug_color = Color(0.435294, 0.584314, 0.392157, 0.419608)
+
+[connection signal="timeout" from="StateMachine/Thrown/CollisionResetTimer" to="StateMachine/Thrown" method="_on_collision_reset_timer_timeout"]
+[connection signal="body_entered" from="RobotDetector" to="StateMachine/Thrown" method="_on_robot_detector_body_entered"]

@@ -35,7 +35,6 @@ func add_fruit_to_panel(fruit: String):
 		# TODO: Iterate from end of list. 
 		
 		if not panel.occupied:  
-			print("add new fruit to frame")
 			panel.add_fruit_to_frame(fruit)
 			break
 	

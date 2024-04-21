@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://tgjdbupbwedx"]
+[gd_scene load_steps=15 format=3 uid="uid://tgjdbupbwedx"]
 
 [ext_resource type="PackedScene" uid="uid://c2igahtpjncvi" path="res://scenes/player/player.tscn" id="1_6p0jb"]
 [ext_resource type="Texture2D" uid="uid://c5fr8cvvfm0ex" path="res://assets/tiles/Tileset.png" id="2_mvta3"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://05rt7y4rwb02" path="res://scenes/robots/base_robot.tscn" id="10_yqyvk"]
 [ext_resource type="PackedScene" uid="uid://50cgu1wmwikp" path="res://scenes/shop/suck_shop.tscn" id="11_2whmw"]
 [ext_resource type="PackedScene" uid="uid://b4efa62prbt6a" path="res://scenes/forageables/peach.tscn" id="11_7sfcl"]
+[ext_resource type="PackedScene" uid="uid://bcct2uefe5who" path="res://scenes/forageables/blueberry.tscn" id="12_omscx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kqc6p"]
 texture = ExtResource("2_mvta3")
@@ -254,30 +255,48 @@ position = Vector2(0, 30)
 
 [node name="PeachSeed" parent="." instance=ExtResource("6_lbpdp")]
 position = Vector2(-72, 120)
+collision_layer = 8
+collision_mask = 9
 
 [node name="AppleSeed" parent="." instance=ExtResource("6_8pbkk")]
 position = Vector2(80, 111)
+collision_layer = 8
+collision_mask = 9
 
 [node name="BlueberrySeed" parent="." instance=ExtResource("7_kf524")]
 position = Vector2(132, 100)
+collision_layer = 8
+collision_mask = 9
 
 [node name="Apple" parent="." instance=ExtResource("9_18rbg")]
-position = Vector2(245, 11)
+position = Vector2(-10, 117)
+collision_mask = 9
 
 [node name="Apple20" parent="." instance=ExtResource("9_18rbg")]
 position = Vector2(257, -20)
+collision_mask = 9
 
 [node name="Apple30" parent="." instance=ExtResource("9_18rbg")]
 position = Vector2(163, 108)
+collision_mask = 9
 
 [node name="BaseRobot" parent="." instance=ExtResource("10_yqyvk")]
-position = Vector2(-107, 121)
+position = Vector2(-33, 127)
 
 [node name="BaseRobot2" parent="." instance=ExtResource("10_yqyvk")]
-position = Vector2(-25, 113)
+position = Vector2(64, 127)
 
 [node name="SuckShop" parent="." instance=ExtResource("11_2whmw")]
 position = Vector2(17, 108)
 
 [node name="Peach" parent="." instance=ExtResource("11_7sfcl")]
 position = Vector2(67, 126)
+collision_mask = 9
+
+[node name="Peach2" parent="." instance=ExtResource("11_7sfcl")]
+position = Vector2(18, 132)
+collision_mask = 9
+
+[node name="Blueberry" parent="." instance=ExtResource("12_omscx")]
+position = Vector2(24, 118)
+collision_mask = 9
