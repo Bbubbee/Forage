@@ -31,6 +31,9 @@ func physics_process(delta: float) -> void:
 			
 			# Randomly choose a marker to spawn in. 
 			var fruit = actor.fruit_scene.instantiate()
+			fruit.name = actor.fruit_name
+			print(fruit.name)
+			$"../../Pop".play()
 			
 			# TODO: Check if all spawns have been taken. 
 			var r = randi_range(1, actor.fruit_spawns.get_child_count())	

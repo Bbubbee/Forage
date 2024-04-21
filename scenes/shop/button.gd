@@ -12,7 +12,7 @@ func _input(event):
 		pressed.emit()
 		press_timer.start()
 		frame = 1
-
+		$Press.play()
 
 func _on_press_timer_timeout():
 	frame = 0

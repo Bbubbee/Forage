@@ -15,15 +15,20 @@ func _on_seed_detector_body_entered(body):
 	
 	call_deferred("spawn_tree_on_dirt_block", body)
 
+func on_tree_destroyed():
+	seed_detector_shape.disabled = false
+
 func spawn_tree_on_dirt_block(fruit_seed: Seed):
 	seed_detector_shape.disabled = true
 	
 	# Spawn a certain tree based on the seed. 
 	var tree = fruit_seed.tree_type.instantiate()
-	
+	$Thud.play()
 	# Position tree. 
 	var spawn_point = tree_spawn_marker.position
 	add_child(tree)	
+	tree.tree_destroyed.connect(on_tree_destroyed)
+	
 	spawn_point.y -= tree.sprite.texture.get_height()/2
 	tree.position = spawn_point
 	

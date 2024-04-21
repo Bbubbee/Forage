@@ -1,9 +1,12 @@
 extends State
+@onready var footsteps = $"../../Audio/Footsteps"
 
 func physics_process(delta):
 	actor.handle_movement(delta)
 	actor.handle_gravity(delta)
 	actor.move_and_slide()
+	
+		
 
 func on_input(_event: InputEvent): 
 	if _event.is_action_pressed("pickup"):

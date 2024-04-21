@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://05rt7y4rwb02"]
+[gd_scene load_steps=29 format=3 uid="uid://05rt7y4rwb02"]
 
 [ext_resource type="Script" path="res://scenes/robots/base_robot.gd" id="1_n7rmx"]
 [ext_resource type="Texture2D" uid="uid://dmn6qluxf74hm" path="res://assets/robots/robot-tileset.png" id="2_8weuy"]
@@ -10,6 +10,15 @@
 [ext_resource type="Script" path="res://scenes/robots/spawn.gd" id="5_llxmp"]
 [ext_resource type="Script" path="res://scenes/robots/despawn.gd" id="7_h48ei"]
 [ext_resource type="PackedScene" uid="uid://bjywnferspmem" path="res://scenes/ui/fruit_panel_container_new.tscn" id="8_wmew2"]
+[ext_resource type="AudioStream" uid="uid://dqjtowthu1dwg" path="res://assets/audio/robot/robot-spawn.mp3" id="11_psk2e"]
+[ext_resource type="AudioStream" uid="uid://dhikfs5l88iuk" path="res://assets/audio/robot/robot-spawn-2.mp3" id="12_ja06v"]
+[ext_resource type="AudioStream" uid="uid://dq50d8vrsrfdj" path="res://assets/audio/robot/robot-interacted.mp3" id="13_pp8od"]
+[ext_resource type="AudioStream" uid="uid://xigiidupoqug" path="res://assets/audio/robot/robot-interacted-2.mp3" id="14_xqkgi"]
+[ext_resource type="AudioStream" uid="uid://caqk775ryndlk" path="res://assets/audio/robot/robot-mad.mp3" id="15_040yo"]
+[ext_resource type="AudioStream" uid="uid://1rb5cklpqxoa" path="res://assets/audio/robot/robot-happy.mp3" id="15_dbt7l"]
+[ext_resource type="AudioStream" uid="uid://48amnf22tsap" path="res://assets/audio/robot/robot-mad-2.mp3" id="16_sl6h1"]
+[ext_resource type="AudioStream" uid="uid://wvqdh8qa8r62" path="res://assets/audio/get-money.mp3" id="18_abwqe"]
+[ext_resource type="AudioStream" uid="uid://dgc1iibe87iix" path="res://assets/audio/robot/robot-deactivated.mp3" id="18_fb8bs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7iv5"]
 height = 26.0
@@ -153,6 +162,7 @@ offset_top = -17.0
 offset_right = 15.0
 offset_bottom = -11.0
 grow_horizontal = 2
+patience_time = 140.0
 
 [node name="Components" type="Node2D" parent="."]
 
@@ -197,10 +207,49 @@ grow_horizontal = 2
 position = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_fa1v7")
 
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Spawn" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("11_psk2e")
+volume_db = -10.0
+
+[node name="Spawn2" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("12_ja06v")
+volume_db = -9.0
+
+[node name="Interacted" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("13_pp8od")
+volume_db = -9.0
+
+[node name="Interacted2" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("14_xqkgi")
+volume_db = -9.0
+
+[node name="Mad" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("15_040yo")
+volume_db = -9.0
+
+[node name="Mad2" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("16_sl6h1")
+volume_db = -9.0
+
+[node name="Happy" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("15_dbt7l")
+volume_db = -9.0
+
+[node name="GetMoney" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("18_abwqe")
+volume_db = -9.0
+
+[node name="Despawn" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("18_fb8bs")
+volume_db = -8.0
+
 [connection signal="animation_finished" from="General/Animator" to="StateMachine/Spawn" method="_on_animator_animation_finished"]
 [connection signal="im_out_of_patience" from="General/Timer" to="." method="_on_timer_im_out_of_patience"]
 [connection signal="timeout" from="StateMachine/Idle/IdleTimer" to="StateMachine/Idle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="StateMachine/Wander/WanderTimer" to="StateMachine/Wander" method="_on_wander_timer_timeout"]
+[connection signal="interacted_with" from="FruitPanelContainerNew" to="." method="_on_fruit_panel_container_new_interacted_with"]
 
 [editable path="General/Timer"]
 [editable path="FruitPanelContainerNew"]

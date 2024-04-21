@@ -19,15 +19,26 @@ func _ready() -> void:
 func _on_consumption_area_body_entered(body: Node2D) -> void:
 	if body is Seed: return
 	
+	if not body is Fruit: return
+	
 	# Add fruit to juice. 
 	animator.play("suck")
+	print(body.name)
+	
 	var fruit_name = body.name.rstrip("1234567890")  # Remove numbers from name. 
+	print(fruit_name)
+	print(typeof(body))
 	juice.append(fruit_name)
 	contents += 1 
 	body.queue_free()
 	
+	if not fruit_name in Globals.list_of_fruits:
+		fruit_name = Globals.list_of_fruits.pick_random() 
+	
 	# Add fruit to panel. 
 	fruit_panel_container_new.add_fruit_to_panel(fruit_name)
+	
+	$Audio/Plunger.play()
 
 	# WARNING: Maximum amount of fruits reached. 
 	if contents >= 3: 
@@ -42,6 +53,7 @@ func _on_juice_button_pressed():
 	# Blend the juice only when the max number of fruits (3) is inside. 
 	if can_blend:
 		print(juice)
+		$Audio/Blend.play()
 		is_juicing = true 
 		can_blend = false
 		animator.play("blend")
@@ -51,8 +63,9 @@ func _on_juice_button_pressed():
 		animator.play("suck")
 		
 		await animator.animation_finished
+		$Audio/Blend.stop()
 		animator.play("open")
-
+		$Audio/Ping.play()
 
 const JUICE = preload("res://scenes/juice/base_juice.tscn")
 @onready var juice_spawn = $JuiceSpawn

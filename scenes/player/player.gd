@@ -22,9 +22,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	state_machine.init(self) 
 	
+@onready var footsteps = $Audio/Footsteps
 
 func _physics_process(_delta):
 	flip_player()
+	
+	if not footsteps.is_playing() and abs(velocity.x) > 0 and is_on_floor() :
+		footsteps.play()
 
 
 func handle_movement(delta):
@@ -38,6 +42,7 @@ func handle_movement(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY# Handle jump.
+		$Audio/Jump.play()
 
 
 func handle_gravity(delta: float): 

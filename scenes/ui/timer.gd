@@ -1,7 +1,7 @@
 extends TextureProgressBar
 
 
-var patience_time: float = 100
+@export var patience_time: float = 100
 
 signal im_out_of_patience
 
@@ -11,7 +11,7 @@ func _ready():
 	max_value = patience_time
 	value = patience_time
 
-var call_once: bool = false
+var call_once: bool = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	patience_time -= delta

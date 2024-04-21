@@ -6,6 +6,7 @@
 
 [node name="BlueberryTree" instance=ExtResource("1_ngxv2")]
 fruit_scene = ExtResource("2_4esyr")
+fruit_name = "blueberry"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_emhcv")

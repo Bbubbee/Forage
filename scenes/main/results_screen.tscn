@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf6he4pv7oas4"]
+[gd_scene load_steps=6 format=3 uid="uid://bf6he4pv7oas4"]
 
 [ext_resource type="Texture2D" uid="uid://3ie8dlqoxidf" path="res://assets/ui/money-Sheet.png" id="1_dywqi"]
 [ext_resource type="Script" path="res://scenes/main/results_screen.gd" id="1_oowbh"]
 [ext_resource type="Texture2D" uid="uid://cq6djjh8ybfob" path="res://assets/player/robot-face-Sheet.png" id="2_a7c2t"]
-[ext_resource type="Texture2D" uid="uid://dh06jumljpbkc" path="res://assets/backgrounds/nature_2/origbig.png" id="4_4b3xb"]
+[ext_resource type="Texture2D" uid="uid://r17ejqhyp75f" path="res://assets/backgrounds/nature_1/origbig.png" id="4_7rhxi"]
+[ext_resource type="AudioStream" uid="uid://dlr85b44aotrp" path="res://assets/audio/piano-loop.mp3" id="5_dm385"]
 
 [node name="ResultsScreen" type="Control"]
 layout_mode = 3
@@ -63,10 +64,25 @@ text = "= "
 modulate = Color(0.654902, 0.654902, 0.654902, 1)
 position = Vector2(136, 84)
 scale = Vector2(0.14728, 0.14728)
-texture = ExtResource("4_4b3xb")
+texture = ExtResource("4_7rhxi")
 
 [node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "asd"
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -47.5
+offset_top = -51.0
+offset_right = 47.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Play Again?"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_dm385")
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

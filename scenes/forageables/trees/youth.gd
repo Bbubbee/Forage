@@ -24,5 +24,6 @@ func physics_process(delta: float) -> void:
 		actor.is_wet = true
 		growth_timer += delta
 		if growth_timer >= time_to_adult:
+			$"../../Growth".play()
 			transition.emit(self, "adult")
 

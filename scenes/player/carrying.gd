@@ -18,6 +18,7 @@ func physics_process(delta):
 	body.global_transform.origin = actor.pickup_marker.global_position
 	
 	
+	
 
 
 func on_input(event: InputEvent): 

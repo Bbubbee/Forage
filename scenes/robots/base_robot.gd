@@ -43,9 +43,15 @@ func received_juice(new_juice):
 	# Determine if this is the right juice. 
 	if compare_juice(new_juice): 
 		state_machine.force_transition("despawn", true)
+		$Audio/Happy.play()
+		$Audio/GetMoney.play()
 	else: 
 		timer.patience_time -= 30
 		
+		var r = randi_range(0, 1) 
+		if r == 1: $Audio/Mad.play()
+		else: $Audio/Mad2.play()
+			
 @onready var timer = $General/Timer
 
 func compare_juice(new_juice): 
@@ -69,4 +75,14 @@ func compare_juice(new_juice):
 
 
 func _on_timer_im_out_of_patience():
+	print('im out of patience')
+	$Audio/Mad.play()
+	$Audio/Despawn.play()
 	state_machine.force_transition("despawn", false)
+	
+
+
+func _on_fruit_panel_container_new_interacted_with():
+	var r = randi_range(0, 1) 
+	if r == 1: $Audio/Interacted.play()
+	else: $Audio/Interacted2.play()

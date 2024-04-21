@@ -38,6 +38,7 @@ func resume():
 
 func _input(event):
 	if event.is_action_pressed("pause"):
+		$"../Select".play()
 		if is_paused:
 			resume()
 		else: 

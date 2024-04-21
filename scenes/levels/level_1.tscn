@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bh1344iv5tw7r"]
+[gd_scene load_steps=25 format=3 uid="uid://bh1344iv5tw7r"]
 
 [ext_resource type="PackedScene" uid="uid://ct442qem5vmlr" path="res://scenes/cloud/cloud.tscn" id="1_o4v1s"]
 [ext_resource type="Texture2D" uid="uid://75s1i25wu1wa" path="res://assets/backgrounds/nature_1/1.png" id="1_qha6t"]
@@ -15,7 +15,12 @@
 [ext_resource type="Script" path="res://scenes/levels/level_manager.gd" id="8_slhvk"]
 [ext_resource type="FontFile" uid="uid://cvqqiiljy1x4j" path="res://assets/font/PixelRPG.ttf" id="9_oeuce"]
 [ext_resource type="Script" path="res://scenes/levels/pause_menu.gd" id="11_m4x1h"]
+[ext_resource type="FontFile" uid="uid://b6rv7ik5hkrup" path="res://assets/font/GloriousChristmas-BLWWB.ttf" id="15_kmyej"]
 [ext_resource type="Script" path="res://scenes/levels/finish_screen.gd" id="16_ikwsk"]
+[ext_resource type="AudioStream" uid="uid://bkajs0ufaq4rm" path="res://assets/audio/select.wav" id="17_ogqbj"]
+[ext_resource type="AudioStream" uid="uid://b1s3cte6fd0w0" path="res://assets/audio/wind-ambience.mp3" id="19_wnmd2"]
+[ext_resource type="AudioStream" uid="uid://b1v0387k162ai" path="res://assets/audio/mountains-rivers-ambience.mp3" id="20_3acaf"]
+[ext_resource type="AudioStream" uid="uid://2lqvx26sadsf" path="res://assets/audio/cottagecore.mp3" id="21_8qn0r"]
 
 [sub_resource type="Animation" id="Animation_x6pjy"]
 length = 0.001
@@ -34,7 +39,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_gkg5f"]
 resource_name = "start_message"
-length = 5.0
+length = 6.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -42,7 +47,7 @@ tracks/0/path = NodePath("UI/RichTextLabel:text")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4, 5),
+"times": PackedFloat32Array(0, 2, 3, 4, 5, 6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": ["[center]Serve the robots juice!", "[center]3", "[center]2", "[center]1", "[center]Go!", ""]
@@ -167,7 +172,7 @@ position = Vector2(90, 4)
 script = ExtResource("8_slhvk")
 
 [node name="LevelTimer" type="Timer" parent="LevelManager"]
-wait_time = 2.0
+wait_time = 300.0
 one_shot = true
 
 [node name="Animator" type="AnimationPlayer" parent="LevelManager"]
@@ -204,6 +209,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_colors/font_selected_color = Color(0.894118, 0, 1, 1)
+theme_override_colors/font_shadow_color = Color(1, 0, 0.917647, 1)
+theme_override_fonts/normal_font = ExtResource("15_kmyej")
 bbcode_enabled = true
 text = "[center]Serve the robots juice!"
 
@@ -272,6 +280,25 @@ offset_bottom = 72.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Times Up!"
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_ogqbj")
+volume_db = -12.0
+
+[node name="WindAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_wnmd2")
+volume_db = 5.0
+autoplay = true
+
+[node name="MountainsAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_3acaf")
+volume_db = -8.0
+autoplay = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_8qn0r")
+volume_db = -8.0
+autoplay = true
 
 [connection signal="game_over" from="LevelManager" to="LevelManager/UI/PauseMenu" method="_on_level_manager_game_over"]
 [connection signal="timeout" from="LevelManager/LevelTimer" to="LevelManager" method="_on_level_timer_timeout"]

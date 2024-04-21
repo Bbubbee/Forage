@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcm4y31o2tn2a"]
+[gd_scene load_steps=6 format=3 uid="uid://bcm4y31o2tn2a"]
 
 [ext_resource type="Texture2D" uid="uid://r56y1l23fw5f" path="res://assets/tiles/dirt-tile-Sheet.png" id="1_m6ivm"]
 [ext_resource type="Script" path="res://scenes/forageables/dirt_block.gd" id="2_esr1g"]
+[ext_resource type="AudioStream" uid="uid://bcrp4t1kdkicf" path="res://assets/audio/thud.wav" id="3_nfffv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ailm3"]
 size = Vector2(16, 16)
@@ -30,5 +31,8 @@ debug_color = Color(0.482353, 0.576471, 0.321569, 0.419608)
 
 [node name="TreeSpawnMarker" type="Marker2D" parent="."]
 position = Vector2(0, -7)
+
+[node name="Thud" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nfffv")
 
 [connection signal="body_entered" from="SeedDetector" to="." method="_on_seed_detector_body_entered"]

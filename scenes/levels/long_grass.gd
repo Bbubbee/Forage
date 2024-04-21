@@ -13,7 +13,7 @@ func _ready():
 func _on_mouse_detector_mouse_entered():
 	#if not is_mouse_down: return
 	var direction = Globals.get_direction_to_target(get_global_mouse_position(), global_position)
-	
+	if not $Rustle.is_playing(): $Rustle.play()
 	if direction.x > 0: 
 		animator.play("shake_right")
 		
@@ -35,6 +35,7 @@ func spawn_seed():
 	var x = randf_range(global_position.x, global_position.x + 16)
 	fruit_seed.global_position.x = x
 	get_tree().get_root().add_child(fruit_seed)
+	$Pop.play()
 		
 	
 var is_mouse_down: bool = false 

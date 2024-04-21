@@ -8,6 +8,7 @@ func enter(enter_params = null):
 	var force = enter_params["force"]
 	
 	actor.velocity = dir * force
+	actor.velocity.y = dir.y * (force * 1.35)
 	
 	collision_reset_timer.start()
 	

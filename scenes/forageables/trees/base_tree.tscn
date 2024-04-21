@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d2r51kpq6cpxa"]
+[gd_scene load_steps=15 format=3 uid="uid://d2r51kpq6cpxa"]
 
 [ext_resource type="Texture2D" uid="uid://d0g5vihptlxna" path="res://assets/tiles/tree-Sheet.png" id="1_csgqt"]
 [ext_resource type="PackedScene" uid="uid://cbtjcxmg5v5w2" path="res://scenes/forageables/base_fruit.tscn" id="2_dhv5j"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scenes/forageables/trees/sapling.gd" id="4_vxlq1"]
 [ext_resource type="Script" path="res://scenes/forageables/trees/youth.gd" id="5_7tr05"]
 [ext_resource type="Script" path="res://scenes/forageables/trees/adult.gd" id="6_o5w7m"]
+[ext_resource type="AudioStream" uid="uid://no8cq864ux7l" path="res://assets/audio/regen.mp3" id="8_q1nvt"]
+[ext_resource type="AudioStream" uid="uid://dgam1n8hk5y4a" path="res://assets/audio/pop.mp3" id="8_yhr7x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvely"]
 size = Vector2(21, 36)
@@ -105,6 +107,13 @@ script = ExtResource("6_o5w7m")
 [node name="MouseDetectorShape" type="CollisionShape2D" parent="MouseDetector"]
 position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_uuces")
+
+[node name="Pop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_yhr7x")
+
+[node name="Growth" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_q1nvt")
+volume_db = -9.0
 
 [connection signal="area_entered" from="WaterArea" to="." method="_on_water_area_area_entered"]
 [connection signal="area_exited" from="WaterArea" to="." method="_on_water_area_area_exited"]

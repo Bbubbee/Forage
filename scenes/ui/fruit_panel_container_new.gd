@@ -12,10 +12,13 @@ func init(juice):
 		fruit_panel_container.add_child(panel) 
 		panel.init(fruit)
 
+signal interacted_with 
+
 # Show juice container. 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and interact_area.has_overlapping_bodies():
 		display_fruit_panels()
+		interacted_with.emit()
 
 func display_fruit_panels(): 
 	display_timer.start()

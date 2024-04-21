@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://50cgu1wmwikp"]
+[gd_scene load_steps=17 format=3 uid="uid://50cgu1wmwikp"]
 
 [ext_resource type="Script" path="res://scenes/shop/suck_shop.gd" id="1_buoqi"]
 [ext_resource type="Texture2D" uid="uid://p2kbyc0s6w5d" path="res://assets/shop/suck-shop-Sheet.png" id="2_qya4r"]
 [ext_resource type="PackedScene" uid="uid://hcl01gwwfds1" path="res://scenes/shop/button.tscn" id="3_8hhe4"]
 [ext_resource type="PackedScene" uid="uid://bjywnferspmem" path="res://scenes/ui/fruit_panel_container_new.tscn" id="4_nw5y6"]
+[ext_resource type="AudioStream" uid="uid://dkuwhd070tkwv" path="res://assets/audio/blender.mp3" id="5_jao40"]
+[ext_resource type="AudioStream" uid="uid://c1wp36x05g20c" path="res://assets/audio/ping.mp3" id="6_7a4sk"]
+[ext_resource type="AudioStream" uid="uid://bvr4a7d6xlvsb" path="res://assets/audio/plunger-pop.mp3" id="7_od0y5"]
 
 [sub_resource type="Animation" id="Animation_fyvjy"]
 length = 0.001
@@ -83,7 +86,7 @@ size = Vector2(24, 4)
 size = Vector2(19, 4.00003)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y788"]
-size = Vector2(32, 17)
+size = Vector2(30, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kltd"]
 size = Vector2(70, 76)
@@ -140,7 +143,7 @@ offset_bottom = -33.0
 grow_horizontal = 2
 
 [node name="InteractShape" parent="FruitPanelContainerNew/InteractArea" index="0"]
-position = Vector2(-6, 28.5)
+position = Vector2(-7, 28.5)
 shape = SubResource("RectangleShape2D_4y788")
 
 [node name="RobotRepelArea" type="Area2D" parent="."]
@@ -153,6 +156,19 @@ shape = SubResource("RectangleShape2D_6kltd")
 
 [node name="JuiceSpawn" type="Marker2D" parent="."]
 position = Vector2(0, 30)
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Blend" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("5_jao40")
+
+[node name="Ping" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("6_7a4sk")
+volume_db = -5.0
+
+[node name="Plunger" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("7_od0y5")
+volume_db = -5.0
 
 [connection signal="animation_finished" from="Animator" to="." method="_on_animator_animation_finished"]
 [connection signal="body_entered" from="ConsumptionArea" to="." method="_on_consumption_area_body_entered"]

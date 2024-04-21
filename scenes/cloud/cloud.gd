@@ -61,6 +61,7 @@ func dragged_state(_delta: float):
 	# If it is, it will start crying. 
 	if shake_counter >= shake_amount_to_cry: 
 		# Enter: crying state. 
+		$Rain.play()
 		rain_contact_timer.start()
 		animator.play("crying")
 		cry_timer.start()
@@ -110,6 +111,7 @@ func _on_mouse_exited():
 
 func _on_cry_timer_timeout():
 	# Enter: idle state.
+	$Rain.stop()
 	rain_collider.set_deferred("disabled", true)
 	rain_particles.emitting = false
 	shake_counter = 0  # Reset shake_counter because the cloud can still be shook in crying state. 	

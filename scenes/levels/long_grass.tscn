@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnwmminbv5j85"]
+[gd_scene load_steps=11 format=3 uid="uid://bnwmminbv5j85"]
 
 [ext_resource type="Texture2D" uid="uid://c48nix5jswsvd" path="res://assets/tiles/grass-Sheet.png" id="1_f3bsu"]
 [ext_resource type="Script" path="res://scenes/levels/long_grass.gd" id="1_uwf7f"]
+[ext_resource type="AudioStream" uid="uid://uw2amcrqgkau" path="res://assets/audio/rustle.ogg" id="3_20hbv"]
+[ext_resource type="AudioStream" uid="uid://dgam1n8hk5y4a" path="res://assets/audio/pop.mp3" id="4_jqle6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f6bbk"]
 size = Vector2(16, 15)
@@ -95,6 +97,13 @@ libraries = {
 "": SubResource("AnimationLibrary_cvkue")
 }
 autoplay = "idle"
+
+[node name="Rustle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_20hbv")
+volume_db = -5.0
+
+[node name="Pop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_jqle6")
 
 [connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
 [connection signal="animation_finished" from="Animator" to="." method="_on_animator_animation_finished"]

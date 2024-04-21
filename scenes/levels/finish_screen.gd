@@ -6,4 +6,4 @@ func end_game():
 	get_tree().paused = false
 	await get_tree().create_timer(2).timeout
 	
-	SceneTransition.cloud_transition("res://scenes/main/results_screen.tscn")
+	SceneTransition.change_scene("res://scenes/main/results_screen.tscn")

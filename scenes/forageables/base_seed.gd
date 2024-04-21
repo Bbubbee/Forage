@@ -8,3 +8,7 @@ class_name Seed
 
 func _on_despawn_timer_timeout():
 	queue_free()
+	
+func pick_up(): 
+	$Pop.play()
+	state_machine.force_transition("held")

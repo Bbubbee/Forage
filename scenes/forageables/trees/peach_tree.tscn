@@ -6,6 +6,7 @@
 
 [node name="PeachTree" instance=ExtResource("1_hasrk")]
 fruit_scene = ExtResource("2_b5vhp")
+fruit_name = "peach"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_7pp82")

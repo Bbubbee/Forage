@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://s5wfa2cehhyk"]
+[gd_scene load_steps=6 format=3 uid="uid://s5wfa2cehhyk"]
 
 [ext_resource type="Script" path="res://scenes/ui/menu.gd" id="1_u7gv7"]
+[ext_resource type="Texture2D" uid="uid://dh06jumljpbkc" path="res://assets/backgrounds/nature_2/origbig.png" id="2_1sqaw"]
+[ext_resource type="AudioStream" uid="uid://bkajs0ufaq4rm" path="res://assets/audio/select.wav" id="2_wbhtq"]
+[ext_resource type="FontFile" uid="uid://b6rv7ik5hkrup" path="res://assets/font/GloriousChristmas-BLWWB.ttf" id="3_37u1o"]
+[ext_resource type="AudioStream" uid="uid://br5o3bvhf78yy" path="res://assets/audio/menu-music.mp3" id="5_hl8kd"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -10,6 +14,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u7gv7")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(170, -68)
+scale = Vector2(0.513117, 0.513117)
+texture = ExtResource("2_1sqaw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -27,10 +36,56 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 1)
+theme_override_fonts/font = ExtResource("3_37u1o")
+theme_override_font_sizes/font_size = 29
 text = "Forage!"
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Start"
 
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wbhtq")
+volume_db = -12.0
+
+[node name="NextPageInfo" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -20.0
+offset_right = 66.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NextPageInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_37u1o")
+text = "Play the tutorial?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NextPageInfo"]
+layout_mode = 2
+alignment = 1
+
+[node name="YesButton" type="Button" parent="NextPageInfo/HBoxContainer"]
+layout_mode = 2
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="NextPageInfo/HBoxContainer"]
+layout_mode = 2
+text = "No"
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hl8kd")
+autoplay = true
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="NextPageInfo/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="NextPageInfo/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctrj4pyx70xxi"]
+[gd_scene load_steps=9 format=3 uid="uid://ctrj4pyx70xxi"]
 
 [ext_resource type="Script" path="res://scenes/ui/message.gd" id="1_lfruy"]
+[ext_resource type="FontFile" uid="uid://b6rv7ik5hkrup" path="res://assets/font/GloriousChristmas-BLWWB.ttf" id="2_omyvh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gygq2"]
 
@@ -34,21 +35,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ynjvv"]
-resource_name = "invisible"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RichTextLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_crrqu"]
 resource_name = "disappear"
 tracks/0/type = "value"
@@ -62,6 +48,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ynjvv"]
+resource_name = "invisible"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3yf00"]
@@ -93,6 +94,8 @@ autoplay = "RESET"
 offset_right = 169.0
 offset_bottom = 97.0
 mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_omyvh")
 theme_override_font_sizes/normal_font_size = 12
 text = "sample sample sample "
 

@@ -6,7 +6,7 @@ extends Node2D
 var is_wet: bool = false
 var is_getting_rained_on: bool = false
 
-
+@export var fruit_name: String = "apple"
 # Timers to grow up. 
 # Must be rained on to grow! TODO: Change this. 
 
@@ -27,6 +27,8 @@ var dry_up_timer: float = 0
 
 @onready var animator = $Animator
 @onready var state_machine: Node = $StateMachine
+
+signal tree_destroyed
 
 func _ready():
 	state_machine.init(self) 
@@ -60,6 +62,7 @@ func _input(event):
 		destroy_clicks += 1 
 		
 		if destroy_clicks >= 5: 
+			tree_destroyed.emit()
 			queue_free()
 
 

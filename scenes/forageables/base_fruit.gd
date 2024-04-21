@@ -13,6 +13,7 @@ func _ready():
 	state_machine.init(self) 
 
 func pick_up(): 
+	
 	state_machine.force_transition("held")
 
 func throw(data: Dictionary): 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2igahtpjncvi"]
+[gd_scene load_steps=14 format=3 uid="uid://c2igahtpjncvi"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_l3gl0"]
 [ext_resource type="Texture2D" uid="uid://67wuvrxa5yig" path="res://assets/player/lil-guy-Sheet.png" id="2_f7n6l"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://3ie8dlqoxidf" path="res://assets/ui/money-Sheet.png" id="6_54amc"]
 [ext_resource type="Script" path="res://scenes/player/money.gd" id="6_em40s"]
 [ext_resource type="FontFile" uid="uid://cvqqiiljy1x4j" path="res://assets/font/PixelRPG.ttf" id="7_3843h"]
+[ext_resource type="AudioStream" uid="uid://b3lng30xcg6jq" path="res://assets/audio/jump.wav" id="9_yxkxq"]
+[ext_resource type="AudioStream" uid="uid://p0lla2fj8gau" path="res://assets/audio/step.wav" id="10_iidf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_furt1"]
 size = Vector2(10, 15)
@@ -16,7 +18,7 @@ size = Vector2(10, 15)
 size = Vector2(11, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g00yc"]
-size = Vector2(255, 124)
+size = Vector2(255, 106)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -52,7 +54,7 @@ position = Vector2(0, -9)
 editor_description = "You have to click and drag from this area to throw a fruit."
 
 [node name="Collider" type="CollisionShape2D" parent="General/ThrowArea"]
-position = Vector2(7, -17)
+position = Vector2(7, -8)
 shape = SubResource("RectangleShape2D_g00yc")
 debug_color = Color(0.662745, 0.486275, 0.45098, 0.419608)
 
@@ -91,6 +93,16 @@ offset_bottom = 7.0
 theme_override_fonts/font = ExtResource("7_3843h")
 theme_override_font_sizes/font_size = 10
 text = "0"
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("9_yxkxq")
+volume_db = -20.0
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("10_iidf5")
+volume_db = -10.0
 
 [connection signal="mouse_entered" from="General/ThrowArea" to="." method="_on_throw_area_mouse_entered"]
 [connection signal="mouse_exited" from="General/ThrowArea" to="." method="_on_throw_area_mouse_exited"]
