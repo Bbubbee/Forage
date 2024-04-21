@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx3gkew5kn3xp"]
+
+[ext_resource type="PackedScene" uid="uid://d2r51kpq6cpxa" path="res://scenes/forageables/trees/base_tree.tscn" id="1_ngxv2"]
+[ext_resource type="PackedScene" uid="uid://bcct2uefe5who" path="res://scenes/forageables/blueberry.tscn" id="2_4esyr"]
+[ext_resource type="Texture2D" uid="uid://cmeeedt0uf3v6" path="res://assets/tiles/blueberry-tree-Sheet.png" id="2_emhcv"]
+
+[node name="BlueberryTree" instance=ExtResource("1_ngxv2")]
+fruit_scene = ExtResource("2_4esyr")
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_emhcv")

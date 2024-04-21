@@ -1,11 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://tgjdbupbwedx"]
+[gd_scene load_steps=14 format=3 uid="uid://tgjdbupbwedx"]
 
 [ext_resource type="PackedScene" uid="uid://c2igahtpjncvi" path="res://scenes/player/player.tscn" id="1_6p0jb"]
 [ext_resource type="Texture2D" uid="uid://c5fr8cvvfm0ex" path="res://assets/tiles/Tileset.png" id="2_mvta3"]
-[ext_resource type="PackedScene" uid="uid://cbtjcxmg5v5w2" path="res://scenes/forageables/base_fruit.tscn" id="3_enu31"]
 [ext_resource type="PackedScene" uid="uid://bcm4y31o2tn2a" path="res://scenes/forageables/dirt_block.tscn" id="4_3q38v"]
-[ext_resource type="PackedScene" uid="uid://cnpv4efd2takm" path="res://scenes/forageables/base_seed.tscn" id="5_nlnql"]
+[ext_resource type="PackedScene" uid="uid://dh442hg6jnioa" path="res://scenes/forageables/apple_seed.tscn" id="6_8pbkk"]
 [ext_resource type="PackedScene" uid="uid://ct442qem5vmlr" path="res://scenes/cloud/cloud.tscn" id="6_ghcpq"]
+[ext_resource type="PackedScene" uid="uid://d15qw2bnsqtxg" path="res://scenes/forageables/peach_seed.tscn" id="6_lbpdp"]
+[ext_resource type="PackedScene" uid="uid://8oxgn2rrd8gh" path="res://scenes/forageables/blueberry_seed.tscn" id="7_kf524"]
+[ext_resource type="PackedScene" uid="uid://cjdiyodg8en2k" path="res://scenes/forageables/apple.tscn" id="9_18rbg"]
+[ext_resource type="PackedScene" uid="uid://05rt7y4rwb02" path="res://scenes/robots/base_robot.tscn" id="10_yqyvk"]
+[ext_resource type="PackedScene" uid="uid://50cgu1wmwikp" path="res://scenes/shop/suck_shop.tscn" id="11_2whmw"]
+[ext_resource type="PackedScene" uid="uid://b4efa62prbt6a" path="res://scenes/forageables/peach.tscn" id="11_7sfcl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kqc6p"]
 texture = ExtResource("2_mvta3")
@@ -229,14 +234,11 @@ tile_set = SubResource("TileSet_848dg")
 format = 2
 layer_0/tile_data = PackedInt32Array(524288, 524289, 0, 589824, 524289, 1, 524289, 589825, 0, 589825, 589825, 1, 524290, 524289, 0, 589826, 524289, 1, 524291, 589825, 0, 589827, 589825, 1, 524292, 524289, 0, 589828, 524289, 1, 524293, 589825, 0, 589829, 589825, 1, 524294, 524289, 0, 589830, 524289, 1, 524295, 589825, 0, 589831, 589825, 1, 524296, 524289, 0, 589832, 524289, 1, 524297, 589825, 0, 589833, 589825, 1, 524298, 524289, 0, 589834, 524289, 1, 524301, 589825, 0, 589837, 589825, 1, 524302, 524289, 0, 589838, 524289, 1, 524303, 589825, 0, 589839, 589825, 1, 524304, 524289, 0, 589840, 524289, 1, 524305, 589825, 0, 589841, 589825, 1, 524306, 524289, 0, 589842, 524289, 1, 524307, 589825, 0, 589843, 589825, 1, 655360, 524289, 2, 655361, 589825, 2, 655362, 524289, 2, 655363, 589825, 2, 655364, 524289, 2, 655365, 589825, 2, 655366, 524289, 2, 655367, 589825, 2, 655368, 524289, 2, 655369, 589825, 2, 655370, 524289, 2, 655371, 589825, 2, 655372, 524289, 2, 655373, 589825, 2, 655374, 524289, 2, 655375, 589825, 2, 655376, 524289, 2, 655377, 589825, 2, 655378, 524289, 2, 655379, 589825, 2, 589822, 524289, 0, 655358, 524289, 1, 720894, 524289, 2, 589823, 589825, 0, 655359, 589825, 1, 720895, 589825, 2, 589820, 524289, 0, 655356, 524289, 1, 720892, 524289, 2, 720893, 589825, 2, 589818, 524289, 0, 655354, 524289, 1, 720890, 524289, 2, 589819, 589825, 0, 655355, 589825, 1, 720891, 589825, 2, 589816, 524289, 0, 655352, 524289, 1, 720888, 524289, 2, 589817, 589825, 0, 655353, 589825, 1, 720889, 589825, 2, 524308, 524289, 0, 589844, 524289, 1, 655380, 524289, 2, 524310, 524289, 0, 589846, 524289, 1, 655382, 524289, 2, 524311, 655361, 0, 589847, 655361, 1, 655383, 655361, 2, 720886, 524289, 2, 589815, 589825, 0, 655351, 589825, 1, 720887, 589825, 2, 589812, 524289, 0, 655348, 524289, 1, 720884, 524289, 2, 589813, 589825, 0, 655349, 589825, 1, 720885, 589825, 2, 589810, 458753, 0, 655346, 458753, 1, 720882, 458753, 2, 589811, 589825, 0, 655347, 589825, 1, 720883, 589825, 2, 524300, 524289, 0, 589836, 524289, 1, 655381, 589825, 2)
 
-[node name="BaseFruit" parent="." instance=ExtResource("3_enu31")]
-position = Vector2(-11, 122)
-
 [node name="DirtBlock" parent="." instance=ExtResource("4_3q38v")]
 position = Vector2(184, 152)
 
 [node name="DirtBlock2" parent="." instance=ExtResource("4_3q38v")]
-position = Vector2(-40, 153)
+position = Vector2(-40, 152)
 
 [node name="DirtBlock3" parent="." instance=ExtResource("4_3q38v")]
 position = Vector2(-152, 152)
@@ -244,14 +246,38 @@ position = Vector2(-152, 152)
 [node name="DirtBlock4" parent="." instance=ExtResource("4_3q38v")]
 position = Vector2(344, 152)
 
-[node name="BaseSeed" parent="." instance=ExtResource("5_nlnql")]
-position = Vector2(81, 109)
-
-[node name="BaseSeed2" parent="." instance=ExtResource("5_nlnql")]
-position = Vector2(95, 109)
-
 [node name="Cloud" parent="." instance=ExtResource("6_ghcpq")]
 position = Vector2(7, 48)
 
 [node name="Cloud2" parent="." instance=ExtResource("6_ghcpq")]
 position = Vector2(0, 30)
+
+[node name="PeachSeed" parent="." instance=ExtResource("6_lbpdp")]
+position = Vector2(-72, 120)
+
+[node name="AppleSeed" parent="." instance=ExtResource("6_8pbkk")]
+position = Vector2(80, 111)
+
+[node name="BlueberrySeed" parent="." instance=ExtResource("7_kf524")]
+position = Vector2(132, 100)
+
+[node name="Apple" parent="." instance=ExtResource("9_18rbg")]
+position = Vector2(245, 11)
+
+[node name="Apple20" parent="." instance=ExtResource("9_18rbg")]
+position = Vector2(257, -20)
+
+[node name="Apple30" parent="." instance=ExtResource("9_18rbg")]
+position = Vector2(163, 108)
+
+[node name="BaseRobot" parent="." instance=ExtResource("10_yqyvk")]
+position = Vector2(-107, 121)
+
+[node name="BaseRobot2" parent="." instance=ExtResource("10_yqyvk")]
+position = Vector2(-25, 113)
+
+[node name="SuckShop" parent="." instance=ExtResource("11_2whmw")]
+position = Vector2(17, 108)
+
+[node name="Peach" parent="." instance=ExtResource("11_7sfcl")]
+position = Vector2(67, 126)

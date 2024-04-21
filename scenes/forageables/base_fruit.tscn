@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbtjcxmg5v5w2"]
+[gd_scene load_steps=10 format=3 uid="uid://cbtjcxmg5v5w2"]
 
 [ext_resource type="Script" path="res://scenes/forageables/base_fruit.gd" id="1_2h8uq"]
 [ext_resource type="Texture2D" uid="uid://dnigy1dfr6v3d" path="res://assets/fruits/peach-Sheet.png" id="1_6uyao"]
@@ -10,6 +10,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eopgl"]
 radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ekk2"]
+radius = 4.0
 
 [node name="BaseFruit" type="CharacterBody2D"]
 collision_layer = 8
@@ -45,7 +48,16 @@ script = ExtResource("5_4txbu")
 script = ExtResource("6_b0n6m")
 
 [node name="CollisionResetTimer" type="Timer" parent="StateMachine/Thrown"]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 
+[node name="PhysicsDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="PhysicsDetectorShape" type="CollisionShape2D" parent="PhysicsDetector"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_3ekk2")
+
 [connection signal="timeout" from="StateMachine/Thrown/CollisionResetTimer" to="StateMachine/Thrown" method="_on_collision_reset_timer_timeout"]
+[connection signal="body_entered" from="PhysicsDetector" to="." method="_on_physics_detector_body_entered"]

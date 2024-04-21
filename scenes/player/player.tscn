@@ -16,7 +16,7 @@ size = Vector2(11, 15)
 size = Vector2(255, 100)
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 25
 script = ExtResource("1_l3gl0")
 
@@ -30,7 +30,8 @@ debug_color = Color(0.959722, 1.92523e-07, 0.520047, 0.42)
 texture = ExtResource("2_f7n6l")
 
 [node name="Camera2D" type="Camera2D" parent="General"]
-position = Vector2(0, -39)
+position = Vector2(0, -26)
+zoom = Vector2(1.25, 1.25)
 
 [node name="PickupZone" type="Area2D" parent="General"]
 collision_layer = 0

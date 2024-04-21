@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://d2r51kpq6cpxa"]
+
+[ext_resource type="Texture2D" uid="uid://d0g5vihptlxna" path="res://assets/tiles/tree-Sheet.png" id="1_csgqt"]
+[ext_resource type="PackedScene" uid="uid://cbtjcxmg5v5w2" path="res://scenes/forageables/base_fruit.tscn" id="2_dhv5j"]
+[ext_resource type="Script" path="res://scenes/forageables/trees/base_tree.gd" id="2_hfgno"]
+[ext_resource type="Script" path="res://utilities/states/state_machine.gd" id="3_4k34t"]
+[ext_resource type="Script" path="res://scenes/forageables/trees/sapling.gd" id="4_vxlq1"]
+[ext_resource type="Script" path="res://scenes/forageables/trees/youth.gd" id="5_7tr05"]
+[ext_resource type="Script" path="res://scenes/forageables/trees/adult.gd" id="6_o5w7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvely"]
+size = Vector2(21, 36)
+
+[sub_resource type="Animation" id="Animation_up8gx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_askio"]
+resource_name = "dry"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.572549, 0.572549, 0.572549, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v8681"]
+_data = {
+"RESET": SubResource("Animation_up8gx"),
+"dry": SubResource("Animation_askio")
+}
+
+[node name="BaseTree" type="Node2D"]
+script = ExtResource("2_hfgno")
+fruit_scene = ExtResource("2_dhv5j")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_csgqt")
+hframes = 3
+
+[node name="WaterArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="WaterShape" type="CollisionShape2D" parent="WaterArea"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_qvely")
+debug_color = Color(0.137255, 0.623529, 0.490196, 0.419608)
+
+[node name="WetTimer" type="Timer" parent="."]
+
+[node name="FruitSpawns" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="FruitMarker1" type="Marker2D" parent="FruitSpawns"]
+position = Vector2(0, -13)
+
+[node name="FruitMarker2" type="Marker2D" parent="FruitSpawns"]
+position = Vector2(-8, 0)
+
+[node name="FruitMarker3" type="Marker2D" parent="FruitSpawns"]
+position = Vector2(9, 1)
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite")
+libraries = {
+"": SubResource("AnimationLibrary_v8681")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_4k34t")
+initial_state = NodePath("Sapling")
+
+[node name="Sapling" type="Node" parent="StateMachine"]
+script = ExtResource("4_vxlq1")
+
+[node name="Youth" type="Node" parent="StateMachine"]
+script = ExtResource("5_7tr05")
+
+[node name="Adult" type="Node" parent="StateMachine"]
+script = ExtResource("6_o5w7m")
+
+[connection signal="area_entered" from="WaterArea" to="." method="_on_water_area_area_entered"]
+[connection signal="area_exited" from="WaterArea" to="." method="_on_water_area_area_exited"]

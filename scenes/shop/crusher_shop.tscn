@@ -1,0 +1,147 @@
+[gd_scene load_steps=12 format=3 uid="uid://cktvowsl07ake"]
+
+[ext_resource type="Script" path="res://scenes/shop/crusher_shop.gd" id="1_buq24"]
+[ext_resource type="Texture2D" uid="uid://cxg2uqo5nou8u" path="res://assets/shop/shop-Sheet.png" id="1_gllke"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plbqk"]
+size = Vector2(48, 11)
+
+[sub_resource type="Animation" id="Animation_73yk7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fhe00"]
+resource_name = "crush"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_okndi"]
+resource_name = "stop_crushing"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_y764t"]
+resource_name = "show_juice"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ue6qt"]
+_data = {
+"RESET": SubResource("Animation_73yk7"),
+"crush": SubResource("Animation_fhe00"),
+"show_juice": SubResource("Animation_y764t"),
+"stop_crushing": SubResource("Animation_okndi")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2et8"]
+size = Vector2(10, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rls3"]
+size = Vector2(18.25, 30.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngne3"]
+size = Vector2(19.125, 30)
+
+[node name="CrusherShop" type="Node2D"]
+script = ExtResource("1_buq24")
+
+[node name="StaticBody" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody"]
+polygon = PackedVector2Array(-24, -18, -24, 12, 24, 12, 24, -18, 40, -18, 40, 27, -40, 27, -40, -18)
+
+[node name="FruitDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="FruitDetectorShape" type="CollisionShape2D" parent="FruitDetector"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_plbqk")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_gllke")
+hframes = 7
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ue6qt")
+}
+
+[node name="SquishArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SquishArea"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_q2et8")
+debug_color = Color(0.988235, 0, 0.301961, 0.419608)
+
+[node name="PusherLeft" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PusherLeft"]
+position = Vector2(-14.5, -3.5)
+shape = SubResource("RectangleShape2D_7rls3")
+debug_color = Color(0, 0.639216, 0.364706, 0.419608)
+
+[node name="PusherRight" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PusherRight"]
+position = Vector2(14.4375, -3)
+shape = SubResource("RectangleShape2D_ngne3")
+debug_color = Color(0, 0.639216, 0.364706, 0.419608)
+
+[node name="CrushingTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="FruitDetector" to="." method="_on_fruit_detector_body_entered"]
+[connection signal="body_exited" from="FruitDetector" to="." method="_on_fruit_detector_body_exited"]
+[connection signal="timeout" from="CrushingTimer" to="." method="_on_crushing_timer_timeout"]

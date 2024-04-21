@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh442hg6jnioa"]
+
+[ext_resource type="PackedScene" uid="uid://cnpv4efd2takm" path="res://scenes/forageables/base_seed.tscn" id="1_crk8m"]
+[ext_resource type="PackedScene" uid="uid://c1s7dy5e8xwef" path="res://scenes/forageables/trees/apple_tree.tscn" id="2_er0gv"]
+[ext_resource type="Texture2D" uid="uid://hhrn8an7os2f" path="res://assets/fruits/apple-seed-Sheet.png" id="3_buulg"]
+
+[node name="AppleSeed" instance=ExtResource("1_crk8m")]
+tree_type = ExtResource("2_er0gv")
+
+[node name="Sprite" parent="General" index="0"]
+texture = ExtResource("3_buulg")

@@ -16,6 +16,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var pickup_collider = $General/PickupZone/PickupCollider
 
 
+# TODO: Double Jump.
+
 
 func _ready():
 	state_machine.init(self) 

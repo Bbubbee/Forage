@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://d15qw2bnsqtxg"]
+
+[ext_resource type="PackedScene" uid="uid://cnpv4efd2takm" path="res://scenes/forageables/base_seed.tscn" id="1_1s4bg"]
+[ext_resource type="PackedScene" uid="uid://h2g8j08a3c7a" path="res://scenes/forageables/trees/peach_tree.tscn" id="2_m0huf"]
+
+[node name="PeachSeed" instance=ExtResource("1_1s4bg")]
+tree_type = ExtResource("2_m0huf")

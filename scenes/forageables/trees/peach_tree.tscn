@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://h2g8j08a3c7a"]
+
+[ext_resource type="PackedScene" uid="uid://d2r51kpq6cpxa" path="res://scenes/forageables/trees/base_tree.tscn" id="1_hasrk"]
+[ext_resource type="Texture2D" uid="uid://b5grlud5dbcmn" path="res://assets/tiles/peach-tree-Sheet.png" id="2_7pp82"]
+[ext_resource type="PackedScene" uid="uid://b4efa62prbt6a" path="res://scenes/forageables/peach.tscn" id="2_b5vhp"]
+
+[node name="PeachTree" instance=ExtResource("1_hasrk")]
+fruit_scene = ExtResource("2_b5vhp")
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_7pp82")

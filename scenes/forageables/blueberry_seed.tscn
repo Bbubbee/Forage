@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://8oxgn2rrd8gh"]
+
+[ext_resource type="PackedScene" uid="uid://cnpv4efd2takm" path="res://scenes/forageables/base_seed.tscn" id="1_om4n3"]
+[ext_resource type="Texture2D" uid="uid://bvab6u00concf" path="res://assets/fruits/blueberry-seed-Sheet.png" id="2_bcjln"]
+[ext_resource type="PackedScene" uid="uid://cx3gkew5kn3xp" path="res://scenes/forageables/trees/blueberry_tree.tscn" id="2_w2dal"]
+
+[node name="BlueberrySeed" instance=ExtResource("1_om4n3")]
+tree_type = ExtResource("2_w2dal")
+
+[node name="Sprite" parent="General" index="0"]
+texture = ExtResource("2_bcjln")

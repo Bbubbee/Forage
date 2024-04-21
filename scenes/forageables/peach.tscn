@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4efa62prbt6a"]
+
+[ext_resource type="PackedScene" uid="uid://cbtjcxmg5v5w2" path="res://scenes/forageables/base_fruit.tscn" id="1_bwa5v"]
+
+[node name="Peach" instance=ExtResource("1_bwa5v")]

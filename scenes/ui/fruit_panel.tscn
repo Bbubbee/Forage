@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnod5q7bhf23h"]
+
+[ext_resource type="Texture2D" uid="uid://c8r80xaydabno" path="res://assets/ui/fruit-frame-Sheet.png" id="1_facpt"]
+[ext_resource type="Script" path="res://scenes/ui/fruit_panel.gd" id="1_vyba7"]
+
+[node name="FruitPanel" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(14, 14)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -274.0
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vyba7")
+
+[node name="PanelSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_facpt")
+centered = false
+
+[node name="FruitSprite" type="Sprite2D" parent="."]
+position = Vector2(3, 2)
+centered = false

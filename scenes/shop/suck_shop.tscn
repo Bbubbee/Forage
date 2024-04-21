@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://50cgu1wmwikp"]
+
+[ext_resource type="Script" path="res://scenes/shop/suck_shop.gd" id="1_buoqi"]
+[ext_resource type="Texture2D" uid="uid://p2kbyc0s6w5d" path="res://assets/shop/suck-shop-Sheet.png" id="2_qya4r"]
+[ext_resource type="PackedScene" uid="uid://hcl01gwwfds1" path="res://scenes/shop/button.tscn" id="3_8hhe4"]
+[ext_resource type="PackedScene" uid="uid://cd3nqk38gnvj5" path="res://scenes/shop/fruit_panel_container.tscn" id="4_5fksk"]
+
+[sub_resource type="Animation" id="Animation_fyvjy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ikan4"]
+resource_name = "blend"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+}
+
+[sub_resource type="Animation" id="Animation_isojt"]
+resource_name = "suck"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y7p54"]
+_data = {
+"RESET": SubResource("Animation_fyvjy"),
+"blend": SubResource("Animation_ikan4"),
+"suck": SubResource("Animation_isojt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3mtp"]
+size = Vector2(24, 4)
+
+[node name="SuckShop" type="Node2D"]
+z_index = -2
+script = ExtResource("1_buoqi")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_qya4r")
+hframes = 22
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y7p54")
+}
+
+[node name="ConsumptionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="ConsumptionShape" type="CollisionShape2D" parent="ConsumptionArea"]
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_c3mtp")
+debug_color = Color(0.898039, 0.231373, 0.545098, 0.419608)
+
+[node name="JuiceButton" parent="." instance=ExtResource("3_8hhe4")]
+modulate = Color(0.2, 1, 0.223529, 1)
+position = Vector2(-13.5198, 27.1033)
+rotation = -1.5708
+
+[node name="SpitButton" parent="." instance=ExtResource("3_8hhe4")]
+modulate = Color(1, 0.027451, 0.027451, 1)
+position = Vector2(13.4339, 27.5875)
+rotation = 1.5708
+
+[node name="FruitPanelContainer" parent="." instance=ExtResource("4_5fksk")]
+offset_left = -25.5538
+offset_top = -48.5306
+offset_right = 25.4462
+offset_bottom = -32.5306
+
+[node name="InteractArea" parent="FruitPanelContainer" index="0"]
+position = Vector2(24, 69.8392)
+
+[node name="InteractShape" parent="FruitPanelContainer/InteractArea" index="0"]
+position = Vector2(1.69791, 7.35188)
+
+[connection signal="body_entered" from="ConsumptionArea" to="." method="_on_consumption_area_body_entered"]
+
+[editable path="FruitPanelContainer"]

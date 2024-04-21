@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://hcl01gwwfds1"]
+
+[ext_resource type="Texture2D" uid="uid://crseigmxmlkcn" path="res://assets/shop/button-Sheet.png" id="1_a8ha0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwmoj"]
+size = Vector2(20, 12)
+
+[node name="Button" type="Sprite2D"]
+texture = ExtResource("1_a8ha0")
+hframes = 2
+
+[node name="PressArea" type="Area2D" parent="."]
+
+[node name="PressAreaShape" type="CollisionShape2D" parent="PressArea"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_hwmoj")

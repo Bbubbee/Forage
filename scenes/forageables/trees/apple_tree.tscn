@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1s7dy5e8xwef"]
+
+[ext_resource type="PackedScene" uid="uid://d2r51kpq6cpxa" path="res://scenes/forageables/trees/base_tree.tscn" id="1_6nfql"]
+[ext_resource type="PackedScene" uid="uid://cjdiyodg8en2k" path="res://scenes/forageables/apple.tscn" id="2_5ifa3"]
+
+[node name="AppleTree" instance=ExtResource("1_6nfql")]
+fruit_scene = ExtResource("2_5ifa3")
+
+[node name="WaterArea" parent="." index="1"]
+visible = false

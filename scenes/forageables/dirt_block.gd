@@ -6,8 +6,6 @@ extends Sprite2D
 
 
 
-
-
 func _on_seed_detector_body_entered(body):
 	# This body is not a seed. 
 	if not body is Seed: return
@@ -25,9 +23,8 @@ func spawn_tree_on_dirt_block(fruit_seed: Seed):
 	
 	# Position tree. 
 	var spawn_point = tree_spawn_marker.position
-	spawn_point.y -= tree.texture.get_height()/2
+	add_child(tree)	
+	spawn_point.y -= tree.sprite.texture.get_height()/2
 	tree.position = spawn_point
-	
-	add_child(tree)
 	
 	fruit_seed.queue_free()

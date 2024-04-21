@@ -1,0 +1,160 @@
+[gd_scene load_steps=16 format=3 uid="uid://05rt7y4rwb02"]
+
+[ext_resource type="Script" path="res://scenes/robots/base_robot.gd" id="1_n7rmx"]
+[ext_resource type="Texture2D" uid="uid://dmn6qluxf74hm" path="res://assets/robots/robot-tileset.png" id="2_8weuy"]
+[ext_resource type="PackedScene" uid="uid://crns5it7fu8im" path="res://utilities/components/velocity_component.tscn" id="3_cbsef"]
+[ext_resource type="Script" path="res://utilities/states/state_machine.gd" id="3_hybgk"]
+[ext_resource type="Script" path="res://scenes/robots/idle.gd" id="4_fseqp"]
+[ext_resource type="Script" path="res://scenes/robots/wander.gd" id="5_i2inj"]
+[ext_resource type="Script" path="res://scenes/robots/spawn.gd" id="5_llxmp"]
+[ext_resource type="PackedScene" uid="uid://cd3nqk38gnvj5" path="res://scenes/shop/fruit_panel_container.tscn" id="8_cjn6r"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a7iv5"]
+height = 26.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd2ho"]
+atlas = ExtResource("2_8weuy")
+region = Rect2(208, 16, 208, 32)
+
+[sub_resource type="Animation" id="Animation_jkft6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("General/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("General/Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gkvv1"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("General/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_5hwsp"]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("General/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w73xs"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("General/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r1lqm"]
+_data = {
+"RESET": SubResource("Animation_jkft6"),
+"idle": SubResource("Animation_gkvv1"),
+"spawn": SubResource("Animation_5hwsp"),
+"walk": SubResource("Animation_w73xs")
+}
+
+[node name="BaseRobot" type="CharacterBody2D"]
+z_index = -1
+collision_layer = 4
+script = ExtResource("1_n7rmx")
+
+[node name="PhysicsShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, 2)
+shape = SubResource("CapsuleShape2D_a7iv5")
+
+[node name="General" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="General"]
+modulate = Color(1, 1, 1, 0)
+texture = SubResource("AtlasTexture_vd2ho")
+hframes = 13
+
+[node name="Animator" type="AnimationPlayer" parent="General"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_r1lqm")
+}
+autoplay = "spawn"
+
+[node name="FloorDetectorRay" type="RayCast2D" parent="General"]
+position = Vector2(10, 2.08165e-12)
+target_position = Vector2(0, 23)
+collide_with_areas = true
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="VelocityComponent" parent="Components" node_paths=PackedStringArray("actor") instance=ExtResource("3_cbsef")]
+actor = NodePath("../..")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_hybgk")
+initial_state = NodePath("Spawn")
+
+[node name="Spawn" type="Node" parent="StateMachine"]
+script = ExtResource("5_llxmp")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_fseqp")
+
+[node name="IdleTimer" type="Timer" parent="StateMachine/Idle"]
+one_shot = true
+
+[node name="Wander" type="Node" parent="StateMachine"]
+script = ExtResource("5_i2inj")
+
+[node name="WanderTimer" type="Timer" parent="StateMachine/Wander"]
+one_shot = true
+
+[node name="FruitPanelContainer" parent="." instance=ExtResource("8_cjn6r")]
+
+[connection signal="animation_finished" from="General/Animator" to="StateMachine/Spawn" method="_on_animator_animation_finished"]
+[connection signal="timeout" from="StateMachine/Idle/IdleTimer" to="StateMachine/Idle" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Wander/WanderTimer" to="StateMachine/Wander" method="_on_wander_timer_timeout"]

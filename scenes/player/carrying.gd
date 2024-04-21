@@ -46,7 +46,7 @@ func throw_fruit():
 	# Depends on the distance dragged. 
 	var release_pos = actor.get_local_mouse_position()
 	var distance = Globals.get_distance_between_two_targets(start_pos, release_pos)
-	var force = clamp(distance*3, 0, 225)  # *3 = it reaches max distant faster.
+	var force = clamp(distance*4, 0, 320)  # *3 = it reaches max distant faster.
 	
 	# The direction to throw the fruit. 	
 	var direction = Globals.get_direction_to_target(start_pos, release_pos)
