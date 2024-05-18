@@ -209,6 +209,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_colors/font_selected_color = Color(0.894118, 0, 1, 1)
 theme_override_colors/font_shadow_color = Color(1, 0, 0.917647, 1)
 theme_override_fonts/normal_font = ExtResource("15_kmyej")
@@ -224,6 +225,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("11_m4x1h")
 
 [node name="ColorRect" type="ColorRect" parent="LevelManager/UI/PauseMenu"]
@@ -233,6 +235,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.521569)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelManager/UI/PauseMenu"]
@@ -248,13 +251,16 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ResumeButton" type="Button" parent="LevelManager/UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 text = "Resume"
 
 [node name="RestartButton" type="Button" parent="LevelManager/UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 text = "Restart"
 
 [node name="FinishScreen" type="Control" parent="LevelManager/UI"]

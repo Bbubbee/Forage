@@ -25,9 +25,8 @@ func _on_consumption_area_body_entered(body: Node2D) -> void:
 	animator.play("suck")
 	print(body.name)
 	
-	var fruit_name = body.name.rstrip("1234567890")  # Remove numbers from name. 
-	print(fruit_name)
-	print(typeof(body))
+	var fruit_name = body.fruit_name  # body.name.rstrip("1234567890")  # Remove numbers from name. 
+	
 	juice.append(fruit_name)
 	contents += 1 
 	body.queue_free()

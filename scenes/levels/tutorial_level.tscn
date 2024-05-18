@@ -144,7 +144,7 @@ offset_right = 221.0
 offset_bottom = 57.0
 theme_override_font_sizes/normal_font_size = 10
 text = "Throw fruits into top of machine
-Press 'x' to interact
+Press x or e to interact
 Press middle of machine to see contents
 Press green button to juice!"
 
@@ -163,7 +163,7 @@ offset_left = 60.0
 offset_top = -19.0
 offset_right = 222.0
 offset_bottom = 53.0
-text = "Press x to see robots order
+text = "Press x or e to see robots order
 Throw juice at them to serve"
 metadata/_edit_use_anchors_ = true
 
@@ -182,7 +182,7 @@ offset_left = 59.0
 offset_top = 18.0
 offset_right = 221.0
 offset_bottom = 90.0
-text = "Press x to start the game!"
+text = "Press x or e to start the game!"
 metadata/_edit_use_anchors_ = true
 
 [node name="Message7" parent="HelpMessages" instance=ExtResource("3_dhrfi")]

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d3twsoe1qxdpn" path="res://assets/fruits/blueberry-Sheet.png" id="2_rhsi1"]
 
 [node name="Blueberry" instance=ExtResource("1_kht1j")]
+fruit_name = "blueberry"
 
 [node name="Sprite" parent="General" index="0"]
 texture = ExtResource("2_rhsi1")

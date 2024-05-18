@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Fruit
 
 
+@export var fruit_name: String = "apple"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @onready var sprite = $General/Sprite
